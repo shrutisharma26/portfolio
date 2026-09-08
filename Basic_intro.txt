@@ -1,0 +1,53 @@
+NAME: Shruti Sharma
+COLLEGE: IIT Mandi
+DEGREE: B.Tech in DSE
+GRADUATION YEAR: 2028
+
+ROLE/TITLE: Software Developer | AI/ML Enthusiast
+
+ABOUT ME:
+Loves building AI tools, and work with new technologies. I also like dancing
+
+SKILLS: C++. python, ML, AI, NLP, HTML, SQL
+Languages: c++, python
+Frameworks:
+Databases:
+Tools:
+Other:
+
+PROJECTS:
+1.
+Name:
+What it does:
+Tech used:
+GitHub:
+Live demo:
+
+2.
+Name:
+What it does:
+Tech used:
+GitHub:
+Live demo:
+
+3.
+...
+
+EXPERIENCE: 0 
+Company:
+Role:
+Dates:
+What you did:
+
+ACHIEVEMENTS:
+-
+
+CERTIFICATIONS:
+-
+
+GITHUB:
+LINKEDIN:
+EMAIL:
+
+RESUME:
+Upload it here if you have the latest one.
