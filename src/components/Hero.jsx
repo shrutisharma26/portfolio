@@ -4,133 +4,154 @@ const Hero = () => {
       id="home"
       className="relative flex min-h-screen items-center overflow-hidden px-6 pt-24"
     >
-      {/* Background atmosphere */}
+      {/* BACKGROUND */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-[10%] top-[20%] h-[280px] w-[280px] rounded-full bg-purple-500/[0.04] blur-[120px]" />
-
-        <div className="absolute right-[5%] top-[30%] h-[350px] w-[350px] rounded-full bg-blue-500/[0.04] blur-[140px]" />
-
-        <div className="absolute bottom-[5%] left-[40%] h-[250px] w-[250px] rounded-full bg-white/[0.03] blur-[100px]" />
+        <div className="absolute left-[5%] top-[15%] h-[300px] w-[300px] rounded-full bg-purple-500/[0.05] blur-[130px]" />
+        <div className="absolute right-[0%] top-[20%] h-[400px] w-[400px] rounded-full bg-blue-500/[0.045] blur-[150px]" />
+        <div className="absolute bottom-[-10%] left-[35%] h-[350px] w-[350px] rounded-full bg-white/[0.025] blur-[130px]" />
       </div>
 
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
 
-        {/* LEFT SIDE */}
+        {/* LEFT */}
         <div className="fade-up">
 
-          <p className="mb-6 text-xs uppercase tracking-[0.3em] text-white/40 sm:text-sm">
-            Software Developer · AI/ML Enthusiast
-          </p>
+          <div className="mb-7 flex items-center gap-3">
+            <span className="h-px w-8 bg-white/30" />
 
-          <h1 className="fade-up-delay-1 max-w-4xl text-5xl font-semibold leading-[0.95] tracking-[-0.05em] sm:text-6xl lg:text-8xl">
-            Hi, I'm
+            <p className="text-xs uppercase tracking-[0.3em] text-white/40 sm:text-sm">
+              Software Developer · AI/ML Enthusiast
+            </p>
+          </div>
+
+          <h1 className="fade-up-delay-1 max-w-4xl text-5xl font-semibold leading-[0.92] tracking-[-0.055em] sm:text-7xl lg:text-[6.8rem]">
+            Building
             <br />
-            <span className="text-white/40">
-              Shruti Sharma.
+            <span className="text-white/35">
+              intelligent
             </span>
+            <br />
+            things.
           </h1>
 
-          <p className="fade-up-delay-2 mt-8 max-w-xl text-base leading-relaxed text-white/50 sm:text-lg">
-            I love building intelligent tools, experimenting with new
-            technologies, and turning ideas into useful experiences.
+          <p className="fade-up-delay-2 mt-9 max-w-xl text-base leading-relaxed text-white/50 sm:text-lg">
+            I'm Shruti Sharma, a Data Science Engineering student at IIT
+            Mandi who enjoys turning ideas into intelligent, useful
+            software.
           </p>
 
           <div className="fade-up-delay-3 mt-10 flex flex-wrap gap-4">
-
             <a
               href="#projects"
-              className="rounded-full bg-white px-7 py-3.5 text-sm font-medium text-black transition duration-300 hover:scale-105"
+              className="group rounded-full bg-white px-7 py-3.5 text-sm font-medium text-black transition duration-300 hover:scale-105"
             >
-              View My Work →
+              View My Work
+              <span className="ml-2 inline-block transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
             </a>
 
             <a
               href="#contact"
-              className="rounded-full border border-white/20 px-7 py-3.5 text-sm font-medium text-white transition duration-300 hover:border-white/50 hover:bg-white/[0.04]"
+              className="rounded-full border border-white/20 px-7 py-3.5 text-sm font-medium text-white/60 transition duration-300 hover:border-white/50 hover:bg-white/[0.04] hover:text-white"
             >
               Get In Touch
             </a>
+          </div>
 
+          {/* QUICK INFO */}
+          <div className="fade-up-delay-3 mt-14 flex flex-wrap gap-x-8 gap-y-3 text-xs uppercase tracking-[0.2em] text-white/25">
+            <span>Python</span>
+            <span>Machine Learning</span>
+            <span>NLP</span>
+            <span>C++</span>
           </div>
         </div>
 
+        {/* RIGHT — AI VISUAL */}
+        <div className="relative mx-auto h-[400px] w-full max-w-[520px] sm:h-[500px]">
 
-        {/* RIGHT SIDE — AI VISUAL */}
-        <div className="relative mx-auto h-[420px] w-full max-w-[500px] md:h-[500px]">
+          {/* GRID FRAME */}
+          <div className="absolute inset-0 rounded-[2.5rem] border border-white/10 bg-white/[0.012]" />
 
-          {/* Large background frame */}
-          <div className="absolute inset-4 rounded-[2rem] border border-white/10 bg-white/[0.015]" />
-
-          {/* Grid */}
           <div
-            className="absolute inset-4 rounded-[2rem] opacity-20"
+            className="absolute inset-0 rounded-[2.5rem] opacity-20"
             style={{
               backgroundImage:
-                'linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)',
-              backgroundSize: '45px 45px',
+                'linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px)',
+              backgroundSize: '42px 42px',
             }}
           />
 
-          {/* Central AI core */}
-          <div className="float absolute left-1/2 top-1/2 flex h-48 w-48 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/60 shadow-2xl backdrop-blur-xl sm:h-56 sm:w-56">
+          {/* ORBIT */}
+          <div className="float absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 sm:h-72 sm:w-72">
 
-            {/* Inner rings */}
-            <div className="absolute h-36 w-36 rounded-full border border-white/10" />
+            <div className="absolute inset-0 rounded-full border border-white/[0.15]" />
 
-            <div className="absolute h-24 w-24 rounded-full border border-white/10" />
+            <div className="absolute inset-7 rounded-full border border-white/[0.1]" />
 
-            <div className="absolute h-12 w-12 rounded-full bg-white/[0.08] blur-md" />
+            <div className="absolute inset-16 rounded-full border border-white/[0.1]" />
 
-            <div className="relative text-center">
-              <p className="text-4xl font-semibold tracking-tight">
-                AI
-              </p>
+            {/* CORE */}
+            <div className="absolute left-1/2 top-1/2 flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/80 shadow-[0_0_80px_rgba(255,255,255,0.08)] backdrop-blur-xl sm:h-32 sm:w-32">
 
-              <p className="mt-2 text-[9px] uppercase tracking-[0.3em] text-white/30">
-                Build · Learn · Create
-              </p>
+              <div className="text-center">
+                <p className="text-4xl font-semibold tracking-[-0.05em]">
+                  S.
+                </p>
+
+                <p className="mt-1 text-[8px] uppercase tracking-[0.3em] text-white/30">
+                  AI / ML
+                </p>
+              </div>
+
             </div>
+
+            {/* ORBIT NODES */}
+            <div className="absolute left-[4%] top-[47%] h-2.5 w-2.5 rounded-full bg-white/60 shadow-[0_0_20px_rgba(255,255,255,0.6)]" />
+
+            <div className="absolute right-[6%] top-[20%] h-2 w-2 rounded-full bg-white/40 shadow-[0_0_16px_rgba(255,255,255,0.5)]" />
+
+            <div className="absolute bottom-[8%] right-[27%] h-1.5 w-1.5 rounded-full bg-white/30" />
 
           </div>
 
+          {/* TOP CARD */}
+          <div className="fade-up-delay-2 absolute right-3 top-6 rounded-2xl border border-white/10 bg-black/70 px-5 py-4 shadow-2xl backdrop-blur-xl sm:right-7 sm:top-8">
 
-          {/* Top floating card */}
-          <div className="fade-up-delay-2 absolute right-2 top-8 rounded-2xl border border-white/10 bg-black/60 px-5 py-4 backdrop-blur-xl sm:right-6">
+            <div className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-white/70 shadow-[0_0_12px_rgba(255,255,255,0.7)]" />
 
-            <p className="text-[10px] uppercase tracking-[0.2em] text-white/30">
-              Currently
-            </p>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-white/30">
+                Currently
+              </p>
+            </div>
 
-            <p className="mt-1 text-sm text-white/70">
+            <p className="mt-2 text-sm text-white/70">
               Building & Learning
             </p>
 
           </div>
 
-
-          {/* Bottom floating card */}
-          <div className="fade-up-delay-3 absolute bottom-10 left-2 rounded-2xl border border-white/10 bg-black/60 px-5 py-4 backdrop-blur-xl sm:left-6">
+          {/* BOTTOM CARD */}
+          <div className="fade-up-delay-3 absolute bottom-7 left-3 rounded-2xl border border-white/10 bg-black/70 px-5 py-4 shadow-2xl backdrop-blur-xl sm:bottom-9 sm:left-7">
 
             <p className="text-[10px] uppercase tracking-[0.2em] text-white/30">
               Focus
             </p>
 
-            <p className="mt-1 text-sm text-white/70">
+            <p className="mt-2 text-sm text-white/70">
               AI · ML · Software
             </p>
 
           </div>
 
-
-          {/* Small nodes */}
-          <div className="absolute left-[18%] top-[25%] h-2 w-2 rounded-full bg-white/50 shadow-[0_0_20px_rgba(255,255,255,0.5)]" />
-
-          <div className="absolute bottom-[25%] right-[18%] h-2 w-2 rounded-full bg-white/50 shadow-[0_0_20px_rgba(255,255,255,0.5)]" />
-
-          <div className="absolute right-[25%] top-[18%] h-1.5 w-1.5 rounded-full bg-white/30" />
+          {/* CORNER LABEL */}
+          <div className="absolute bottom-4 right-5 text-[9px] uppercase tracking-[0.25em] text-white/20">
+            2026 · Portfolio
+          </div>
 
         </div>
-
       </div>
     </section>
   )

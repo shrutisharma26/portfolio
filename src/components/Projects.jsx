@@ -88,7 +88,7 @@ const Projects = () => {
                 </span>
 
                 <span className="rounded-full border border-white/10 px-4 py-1.5 text-[10px] uppercase tracking-[0.2em] text-white/40">
-                  Featured Project
+                  2nd Place · HACK60
                 </span>
               </div>
 
