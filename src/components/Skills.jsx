@@ -3,29 +3,68 @@ import useReveal from '../useReveal'
 const skills = [
   {
     title: 'Languages',
-    items: ['Python', 'C++'],
+    items: ['Python', 'C++', 'JavaScript', 'HTML', 'CSS'],
   },
   {
     title: 'AI / ML',
-    items: ['Machine Learning', 'Reinforcement Learning', 'NLP', 'TF-IDF'],
+    items: [
+      'Machine Learning',
+      'Reinforcement Learning',
+      'NLP',
+      'TF-IDF',
+      'LLMs',
+      'OpenCV',
+      //'DeepFace',
+    ],
   },
   {
-    title: 'Libraries & Frameworks',
-    items: ['scikit-learn', 'OpenCV', 'Streamlit', 'Plotly'],
+    title: 'Web & APIs',
+    items: [
+      'Flask',
+      'REST APIs',
+      'Responsive Design',
+      'Streamlit',
+      'Vercel',
+    ],
   },
   {
-    title: 'Tools',
-    items: ['Git', 'GitHub', 'REST APIs'],
+    title: 'Data & Visualization',
+    items: [
+      'scikit-learn',
+      'Pandas',
+      'Plotly',
+      'SQL',
+    ],
+  },
+  {
+    title: 'Tools & DevOps',
+    items: [
+      'Git',
+      'GitHub',
+      'GitHub Actions',
+      'CI/CD',
+      'Streamlit Cloud',
+    ],
+  },
+  {
+    title: 'Core CS',
+    items: [
+      'Data Structures & Algorithms',
+      'OOP',
+      'Software Design',
+      'Problem Solving',
+    ],
   },
 ]
 
 const Skills = () => {
   const revealRef = useReveal()
+
   return (
     <section
-        id="skills"
-        ref={revealRef}
-        className="reveal border-t border-white/10 px-6 py-32"
+      id="skills"
+      ref={revealRef}
+      className="reveal border-t border-white/10 px-6 py-32"
     >
       <div className="mx-auto max-w-7xl">
 
@@ -39,8 +78,7 @@ const Skills = () => {
           </h2>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
-
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {skills.map((skill) => (
             <div
               key={skill.title}
@@ -62,7 +100,6 @@ const Skills = () => {
               </div>
             </div>
           ))}
-
         </div>
 
       </div>

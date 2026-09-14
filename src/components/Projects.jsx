@@ -40,6 +40,22 @@ const projects = [
     github:
       'https://github.com/shrutisharma26/Resume-ATS-Analyzer',
   },
+  {
+    number: '04',
+    title: 'Customer Query Classifier',
+    subtitle: 'NLP Support & FAQ API',
+    description:
+      'An NLP-powered customer support backend that classifies queries into billing, technical, and general intents, returns relevant FAQs, and logs support tickets.',
+    tech: [
+      'Python',
+      'scikit-learn',
+      'TF-IDF',
+      'Flask',
+      'SQLite',
+    ],
+    github:
+      'https://github.com/shrutisharma26/customer-query-classifier',
+  },
 ]
 
 const Projects = () => {
@@ -67,19 +83,18 @@ const Projects = () => {
 
           <p className="max-w-sm text-sm leading-relaxed text-white/40">
             Projects where I experiment with AI, machine learning,
-            NLP, and software development.
+            NLP, backend systems, and software development.
           </p>
         </div>
 
-        {/* FEATURED PROJECT — NEWSLENS */}
+        {/* FEATURED PROJECT */}
         <article className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02]">
 
-          {/* Background glow */}
           <div className="pointer-events-none absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full bg-purple-500/[0.05] blur-[140px] transition duration-700 group-hover:bg-purple-500/[0.08]" />
 
           <div className="relative grid lg:grid-cols-[1.05fr_0.95fr]">
 
-            {/* LEFT SIDE */}
+            {/* LEFT */}
             <div className="p-8 sm:p-12 lg:p-16">
 
               <div className="flex items-center justify-between">
@@ -120,7 +135,7 @@ const Projects = () => {
               </div>
             </div>
 
-            {/* RIGHT SIDE — AI DASHBOARD */}
+            {/* RIGHT — NEWSLENS VISUAL */}
             <div className="relative border-t border-white/10 p-8 sm:p-12 lg:border-l lg:border-t-0 lg:p-16">
 
               <div className="mb-8 flex items-center justify-between">
@@ -145,7 +160,6 @@ const Projects = () => {
 
               </div>
 
-              {/* DASHBOARD */}
               <div className="rounded-3xl border border-white/10 bg-black/40 p-5 backdrop-blur-xl">
 
                 <div className="flex items-center justify-between border-b border-white/10 pb-4">
@@ -158,46 +172,32 @@ const Projects = () => {
                   </span>
                 </div>
 
-                {/* PROFILE */}
                 <div className="mt-5 grid grid-cols-3 gap-2">
 
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                    <p className="text-[9px] uppercase tracking-wider text-white/25">
-                      Interest
-                    </p>
+                  {[
+                    ['Interest', 'AI / Tech'],
+                    ['Signal', '+82%'],
+                    ['Mood', 'Focused'],
+                  ].map(([label, value]) => (
+                    <div
+                      key={label}
+                      className="rounded-2xl border border-white/10 bg-white/[0.03] p-4"
+                    >
+                      <p className="text-[9px] uppercase tracking-wider text-white/25">
+                        {label}
+                      </p>
 
-                    <p className="mt-2 text-sm text-white/70">
-                      AI / Tech
-                    </p>
-                  </div>
-
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                    <p className="text-[9px] uppercase tracking-wider text-white/25">
-                      Signal
-                    </p>
-
-                    <p className="mt-2 text-sm text-white/70">
-                      +82%
-                    </p>
-                  </div>
-
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                    <p className="text-[9px] uppercase tracking-wider text-white/25">
-                      Mood
-                    </p>
-
-                    <p className="mt-2 text-sm text-white/70">
-                      Focused
-                    </p>
-                  </div>
+                      <p className="mt-2 text-sm text-white/70">
+                        {value}
+                      </p>
+                    </div>
+                  ))}
 
                 </div>
 
-                {/* RECOMMENDATION SCORES */}
                 <div className="mt-6">
 
                   <div className="mb-3 flex items-center justify-between">
-
                     <span className="text-xs uppercase tracking-wider text-white/25">
                       Recommendation Score
                     </span>
@@ -205,7 +205,6 @@ const Projects = () => {
                     <span className="text-xs text-white/40">
                       Real-time
                     </span>
-
                   </div>
 
                   <div className="space-y-3">
@@ -219,7 +218,6 @@ const Projects = () => {
                         key={title}
                         className="rounded-2xl border border-white/10 bg-white/[0.02] p-4"
                       >
-
                         <div className="flex items-center justify-between gap-4">
 
                           <p className="text-xs text-white/60">
@@ -238,14 +236,12 @@ const Projects = () => {
                             style={{ width: score }}
                           />
                         </div>
-
                       </div>
                     ))}
 
                   </div>
                 </div>
 
-                {/* PROCESSING PIPELINE */}
                 <div className="mt-6 grid grid-cols-4 gap-2">
 
                   {['TF-IDF', 'RL', 'LLM', 'Feed'].map(
@@ -254,7 +250,6 @@ const Projects = () => {
                         key={step}
                         className="rounded-xl border border-white/10 bg-white/[0.02] p-3 text-center"
                       >
-
                         <p className="text-[9px] text-white/25">
                           0{index + 1}
                         </p>
@@ -262,7 +257,6 @@ const Projects = () => {
                         <p className="mt-1 text-[10px] text-white/50">
                           {step}
                         </p>
-
                       </div>
                     )
                   )}
@@ -273,7 +267,7 @@ const Projects = () => {
             </div>
           </div>
 
-          {/* NEWSLENS STATS */}
+          {/* STATS */}
           <div className="grid border-t border-white/10 sm:grid-cols-3">
 
             {projects[0].stats.map(([value, label]) => (
@@ -281,7 +275,6 @@ const Projects = () => {
                 key={label}
                 className="border-b border-white/10 p-6 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0 sm:p-8"
               >
-
                 <p className="text-3xl font-semibold tracking-tight">
                   {value}
                 </p>
@@ -289,7 +282,6 @@ const Projects = () => {
                 <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-white/30">
                   {label}
                 </p>
-
               </div>
             ))}
 
@@ -305,25 +297,30 @@ const Projects = () => {
               className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.02] p-8 transition duration-500 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.04] sm:p-10"
             >
 
-              {/* Hover glow */}
               <div className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full bg-blue-500/[0.04] blur-[80px] opacity-0 transition duration-500 group-hover:opacity-100" />
 
               <div className="relative">
 
-                {/* HEADER */}
                 <div className="flex items-center justify-between">
 
                   <span className="text-sm text-white/30">
                     {project.number}
                   </span>
 
-                  <span className="text-xl text-white/20 transition duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-white/70">
-                    ↗
-                  </span>
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Open ${project.title} on GitHub`}
+                      className="text-xl text-white/20 transition duration-300 hover:translate-x-1 hover:-translate-y-1 hover:text-white/70"
+                    >
+                      ↗
+                    </a>
+                  )}
 
                 </div>
 
-                {/* PROJECT INFO */}
                 <div className="mt-12">
 
                   <p className="text-xs uppercase tracking-[0.2em] text-white/30">
@@ -338,8 +335,79 @@ const Projects = () => {
                     {project.description}
                   </p>
 
-                  {/* PROJECT VISUAL */}
-                  {project.number === '02' ? (
+                  {/* CUSTOMER QUERY CLASSIFIER VISUAL */}
+                  {project.number === '04' ? (
+
+                    <div className="mt-8 rounded-2xl border border-white/10 bg-black/40 p-5">
+
+                      <div className="flex items-center justify-between">
+
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
+                          Classification Engine
+                        </span>
+
+                        <span className="text-[10px] text-white/30">
+                          REST API
+                        </span>
+
+                      </div>
+
+                      <div className="mt-5 grid grid-cols-3 gap-2">
+
+                        {[
+                          ['01', 'TF-IDF'],
+                          ['02', 'Logistic'],
+                          ['03', 'FAQ'],
+                        ].map(([number, label]) => (
+                          <div
+                            key={label}
+                            className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-center"
+                          >
+                            <div className="mx-auto flex h-7 w-7 items-center justify-center rounded-full border border-white/10 text-[9px] text-white/40">
+                              {number}
+                            </div>
+
+                            <p className="mt-2 text-[9px] text-white/40">
+                              {label}
+                            </p>
+                          </div>
+                        ))}
+
+                      </div>
+
+                      <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.02] p-4">
+
+                        <div className="flex items-center justify-between">
+                          <span className="text-[9px] uppercase tracking-[0.2em] text-white/25">
+                            Model Accuracy
+                          </span>
+
+                          <span className="text-sm text-white/60">
+                            83.33%
+                          </span>
+                        </div>
+
+                        <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/5">
+                          <div className="h-full w-[83.33%] rounded-full bg-white/30" />
+                        </div>
+
+                      </div>
+
+                      <div className="mt-4 flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3">
+
+                        <span className="text-[9px] uppercase tracking-[0.2em] text-white/25">
+                          Low Confidence
+                        </span>
+
+                        <span className="text-xs text-white/50">
+                          → Human Review
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                  ) : project.number === '02' ? (
 
                     <div className="mt-8 rounded-2xl border border-white/10 bg-black/40 p-5">
 
@@ -363,7 +431,6 @@ const Projects = () => {
                               key={step}
                               className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-center transition hover:bg-white/[0.06]"
                             >
-
                               <div className="mx-auto flex h-7 w-7 items-center justify-center rounded-full border border-white/10 text-[9px] text-white/40">
                                 0{index + 1}
                               </div>
@@ -371,7 +438,6 @@ const Projects = () => {
                               <p className="mt-2 text-[9px] text-white/40">
                                 {step}
                               </p>
-
                             </div>
                           )
                         )}
@@ -401,37 +467,27 @@ const Projects = () => {
 
                       <div className="mt-5 grid grid-cols-3 gap-2">
 
-                        <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
-                          <p className="text-[9px] text-white/25">
-                            Match
-                          </p>
+                        {[
+                          ['Match', '87%'],
+                          ['Skills', '14'],
+                          ['Gaps', '3'],
+                        ].map(([label, value]) => (
+                          <div
+                            key={label}
+                            className="rounded-xl border border-white/10 bg-white/[0.03] p-3"
+                          >
+                            <p className="text-[9px] text-white/25">
+                              {label}
+                            </p>
 
-                          <p className="mt-1 text-sm text-white/60">
-                            87%
-                          </p>
-                        </div>
-
-                        <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
-                          <p className="text-[9px] text-white/25">
-                            Skills
-                          </p>
-
-                          <p className="mt-1 text-sm text-white/60">
-                            14
-                          </p>
-                        </div>
-
-                        <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
-                          <p className="text-[9px] text-white/25">
-                            Gaps
-                          </p>
-
-                          <p className="mt-1 text-sm text-white/60">
-                            3
-                          </p>
-                        </div>
+                            <p className="mt-1 text-sm text-white/60">
+                              {value}
+                            </p>
+                          </div>
+                        ))}
 
                       </div>
+
                     </div>
                   )}
 

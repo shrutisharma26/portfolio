@@ -2,11 +2,12 @@ import useReveal from '../useReveal'
 
 const Education = () => {
   const revealRef = useReveal()
+
   return (
     <section
-        id="education"
-        ref={revealRef}
-        className="reveal border-t border-white/10 px-6 py-32"
+      id="education"
+      ref={revealRef}
+      className="reveal border-t border-white/10 px-6 py-32"
     >
       <div className="mx-auto max-w-7xl">
 
@@ -22,7 +23,7 @@ const Education = () => {
 
         <div className="space-y-4">
 
-          {/* IIT Mandi */}
+          {/* IIT MANDI */}
           <div className="group rounded-[2rem] border border-white/10 bg-white/[0.02] p-8 transition duration-500 hover:border-white/20 hover:bg-white/[0.04] sm:p-10">
 
             <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
@@ -48,6 +49,7 @@ const Education = () => {
             </div>
 
             <div className="mt-10 flex flex-wrap gap-2">
+
               {[
                 'Data Structures & Algorithms',
                 'Machine Learning',
@@ -60,11 +62,12 @@ const Education = () => {
                   {item}
                 </span>
               ))}
+
             </div>
 
           </div>
 
-          {/* Class XII */}
+          {/* CLASS XII */}
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.02] p-8 sm:p-10">
 
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -87,6 +90,7 @@ const Education = () => {
                 <p className="text-4xl font-semibold">
                   94.2%
                 </p>
+
                 <p className="mt-1 text-xs uppercase tracking-wider text-white/30">
                   Percentage
                 </p>
@@ -96,7 +100,7 @@ const Education = () => {
 
           </div>
 
-          {/* Class X */}
+          {/* CLASS X */}
           <div className="rounded-[2rem] border border-white/10 bg-white/[0.02] p-8 sm:p-10">
 
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -117,8 +121,9 @@ const Education = () => {
 
               <div>
                 <p className="text-4xl font-semibold">
-                  90.2%
+                  90.5%
                 </p>
+
                 <p className="mt-1 text-xs uppercase tracking-wider text-white/30">
                   Percentage
                 </p>
