@@ -1,160 +1,313 @@
+
+import { motion } from "framer-motion";
+
 const Hero = () => {
+  const textReveal = {
+    hidden: { opacity: 0, y: 25 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+    },
+  };
+
+  const floatAnimation = {
+    animate: {
+      y: [0, -8, 0],
+      transition: {
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    },
+  };
+
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center overflow-hidden px-6 pt-24"
+      className="relative flex min-h-screen items-center overflow-hidden px-5 pb-16 pt-28 sm:px-8 lg:px-12"
     >
-      {/* BACKGROUND */}
+      {/* BACKGROUND GLOW */}
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute left-[5%] top-[15%] h-[300px] w-[300px] rounded-full bg-purple-500/[0.05] blur-[130px]" />
-        <div className="absolute right-[0%] top-[20%] h-[400px] w-[400px] rounded-full bg-blue-500/[0.045] blur-[150px]" />
-        <div className="absolute bottom-[-10%] left-[35%] h-[350px] w-[350px] rounded-full bg-white/[0.025] blur-[130px]" />
+        <motion.div
+          animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.25, 0.15] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute left-[5%] top-[5%] h-[350px] w-[350px] rounded-full bg-purple-600/20 blur-[140px]"
+        />
+
+        <motion.div
+          animate={{ scale: [1, 1.1, 1], opacity: [0.15, 0.25, 0.15] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute right-[5%] top-[10%] h-[450px] w-[450px] rounded-full bg-blue-600/20 blur-[160px]"
+        />
+
+        <div className="absolute bottom-[-10%] left-[30%] h-[350px] w-[350px] rounded-full bg-indigo-500/10 blur-[140px]" />
       </div>
 
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
+        {/* LEFT CONTENT */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          transition={{ staggerChildren: 0.12 }}
+        >
+          {/* STATUS */}
+          <motion.div
+            variants={textReveal}
+            className="mb-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 backdrop-blur-xl"
+          >
+            <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]" />
 
-        {/* LEFT */}
-        <div className="fade-up">
-
-          <div className="mb-7 flex items-center gap-3">
-            <span className="h-px w-8 bg-white/30" />
-
-            <p className="text-xs uppercase tracking-[0.3em] text-white/40 sm:text-sm">
-              Software Developer · AI/ML Enthusiast
-            </p>
-          </div>
-
-          <h1 className="fade-up-delay-1 max-w-4xl text-5xl font-semibold leading-[0.92] tracking-[-0.055em] sm:text-7xl lg:text-[6.8rem]">
-            Building
-            <br />
-            <span className="text-white/35">
-              intelligent
+            <span className="text-xs text-white/60">
+              Data Science Engineering · IIT Mandi
             </span>
+          </motion.div>
+
+          {/* INTRO */}
+          <motion.p
+            variants={textReveal}
+            className="mb-4 text-sm tracking-wide text-white/40"
+          >
+            Hey there! I'm
+          </motion.p>
+
+          <motion.h1
+            variants={textReveal}
+            className="text-5xl font-semibold leading-[0.95] tracking-[-0.055em] sm:text-7xl lg:text-[6.5rem]"
+          >
+            Shruti
             <br />
-            things.
-          </h1>
+            <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent">
+              Sharma.
+            </span>
+          </motion.h1>
 
-          <p className="fade-up-delay-2 mt-9 max-w-xl text-base leading-relaxed text-white/50 sm:text-lg">
-            I'm Shruti Sharma, a Data Science Engineering student at IIT
-            Mandi who enjoys turning ideas into intelligent, useful
-            software.
-          </p>
+          {/* ROLE */}
+          <motion.div
+            variants={textReveal}
+            className="mt-7 flex flex-wrap items-center gap-2 text-lg font-medium sm:text-2xl"
+          >
+            <span className="text-white/50">I build</span>
 
-          <div className="fade-up-delay-3 mt-10 flex flex-wrap gap-4">
-            <a
+            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+              intelligent systems.
+            </span>
+          </motion.div>
+
+          {/* DESCRIPTION */}
+          <motion.p
+            variants={textReveal}
+            className="mt-6 max-w-xl text-base leading-relaxed text-white/50 sm:text-lg"
+          >
+            I'm a Data Science Engineering student at IIT Mandi passionate
+            about machine learning, NLP, and AI-powered applications.
+            I enjoy turning complex ideas into practical software.
+          </motion.p>
+
+          {/* BUTTONS */}
+          <motion.div
+            variants={textReveal}
+            className="mt-9 flex flex-wrap gap-4"
+          >
+            <motion.a
+              whileHover={{ y: -4, scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
               href="#projects"
-              className="group rounded-full bg-white px-7 py-3.5 text-sm font-medium text-black transition duration-300 hover:scale-105"
+              className="group rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 px-7 py-3.5 text-sm font-medium text-white shadow-[0_0_30px_rgba(99,102,241,0.2)] transition duration-300 hover:shadow-[0_0_40px_rgba(99,102,241,0.35)]"
             >
-              View My Work
-              <span className="ml-2 inline-block transition-transform duration-300 group-hover:translate-x-1">
+              Explore My Projects
+              <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
                 →
               </span>
-            </a>
+            </motion.a>
 
-            <a
+            <motion.a
+              whileHover={{ y: -4 }}
+              whileTap={{ scale: 0.97 }}
               href="#contact"
-              className="rounded-full border border-white/20 px-7 py-3.5 text-sm font-medium text-white/60 transition duration-300 hover:border-white/50 hover:bg-white/[0.04] hover:text-white"
+              className="rounded-xl border border-white/15 bg-white/[0.03] px-7 py-3.5 text-sm font-medium text-white/70 backdrop-blur-xl transition hover:border-purple-400/40 hover:bg-white/[0.06] hover:text-white"
             >
-              Get In Touch
-            </a>
-          </div>
+              Let's Connect ↗
+            </motion.a>
+          </motion.div>
 
-          {/* QUICK INFO */}
-          <div className="fade-up-delay-3 mt-14 flex flex-wrap gap-x-8 gap-y-3 text-xs uppercase tracking-[0.2em] text-white/25">
-            <span>Python</span>
-            <span>Machine Learning</span>
-            <span>NLP</span>
-            <span>C++</span>
-          </div>
-        </div>
+          {/* TECH STACK */}
+          <motion.div variants={textReveal} className="mt-12">
+            <p className="mb-4 text-[10px] uppercase tracking-[0.25em] text-white/30">
+              Technologies I work with
+            </p>
 
-        {/* RIGHT — AI VISUAL */}
-        <div className="relative mx-auto h-[400px] w-full max-w-[520px] sm:h-[500px]">
+            <div className="flex flex-wrap gap-2">
+              {[
+                "Python",
+                "Machine Learning",
+                "NLP",
+                "LLMs",
+                "FastAPI",
+                "C++",
+              ].map((skill, index) => (
+                <motion.span
+                  key={skill}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.8 + index * 0.08 }}
+                  whileHover={{ y: -3 }}
+                  className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-xs text-white/50 transition hover:border-purple-400/30 hover:text-purple-300"
+                >
+                  {skill}
+                </motion.span>
+              ))}
+            </div>
+          </motion.div>
+        </motion.div>
 
-          {/* GRID FRAME */}
-          <div className="absolute inset-0 rounded-[2.5rem] border border-white/10 bg-white/[0.012]" />
+        {/* RIGHT VISUAL */}
+        <motion.div
+          initial={{ opacity: 0, x: 40, scale: 0.95 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{
+            duration: 0.9,
+            delay: 0.3,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="relative mx-auto w-full max-w-[520px]"
+        >
+          {/* MAIN FRAME */}
+          <motion.div
+            variants={floatAnimation}
+            animate="animate"
+            className="relative min-h-[400px] overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#111426] via-[#0b0b15] to-[#10152b] p-5 shadow-2xl sm:min-h-[480px] sm:p-8"
+          >
+            {/* GRID BACKGROUND */}
+            <div
+              className="pointer-events-none absolute inset-0 opacity-[0.08]"
+              style={{
+                backgroundImage:
+                  "linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)",
+                backgroundSize: "35px 35px",
+              }}
+            />
 
-          <div
-            className="absolute inset-0 rounded-[2.5rem] opacity-20"
-            style={{
-              backgroundImage:
-                'linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px)',
-              backgroundSize: '42px 42px',
-            }}
-          />
+            {/* GLOW */}
+            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-purple-600/20 blur-[100px]" />
+            <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-blue-600/20 blur-[100px]" />
 
-          {/* ORBIT */}
-          <div className="float absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 sm:h-72 sm:w-72">
-
-            <div className="absolute inset-0 rounded-full border border-white/[0.15]" />
-
-            <div className="absolute inset-7 rounded-full border border-white/[0.1]" />
-
-            <div className="absolute inset-16 rounded-full border border-white/[0.1]" />
-
-            {/* CORE */}
-            <div className="absolute left-1/2 top-1/2 flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/80 shadow-[0_0_80px_rgba(255,255,255,0.08)] backdrop-blur-xl sm:h-32 sm:w-32">
-
-              <div className="text-center">
-                <p className="text-4xl font-semibold tracking-[-0.05em]">
-                  S.
-                </p>
-
-                <p className="mt-1 text-[8px] uppercase tracking-[0.3em] text-white/30">
-                  AI / ML
-                </p>
+            {/* TOP BAR */}
+            <div className="relative flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-purple-400" />
+                <span className="h-2 w-2 rounded-full bg-blue-400" />
+                <span className="h-2 w-2 rounded-full bg-white/20" />
               </div>
 
+              <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
+                Developer Profile
+              </span>
             </div>
 
-            {/* ORBIT NODES */}
-            <div className="absolute left-[4%] top-[47%] h-2.5 w-2.5 rounded-full bg-white/60 shadow-[0_0_20px_rgba(255,255,255,0.6)]" />
+            {/* CENTER PROFILE */}
+            <div className="relative flex flex-col items-center py-10 sm:py-14">
+              {/* ORBIT */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
+                className="absolute top-12 h-52 w-52 rounded-full border border-purple-400/20 sm:h-60 sm:w-60"
+              />
 
-            <div className="absolute right-[6%] top-[20%] h-2 w-2 rounded-full bg-white/40 shadow-[0_0_16px_rgba(255,255,255,0.5)]" />
+              <motion.div
+                animate={{ rotate: -360 }}
+                transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+                className="absolute top-16 h-44 w-44 rounded-full border border-blue-400/20 sm:h-52 sm:w-52"
+              />
 
-            <div className="absolute bottom-[8%] right-[27%] h-1.5 w-1.5 rounded-full bg-white/30" />
+              {/* PROFILE PHOTO */}
+              <motion.div
+                whileHover={{ scale: 1.04 }}
+                className="relative z-10 h-36 w-36 overflow-hidden rounded-full border-2 border-purple-400/50 bg-gradient-to-br from-purple-600/30 to-blue-600/30 p-1 shadow-[0_0_70px_rgba(139,92,246,0.35)] sm:h-44 sm:w-44"
+              >
+                <img
+                  src="/images/shruti.jpg"
+                  alt="Shruti Sharma"
+                  className="h-full w-full rounded-full object-cover object-center"
+                />
+              </motion.div>
 
-          </div>
-
-          {/* TOP CARD */}
-          <div className="fade-up-delay-2 absolute right-3 top-6 rounded-2xl border border-white/10 bg-black/70 px-5 py-4 shadow-2xl backdrop-blur-xl sm:right-7 sm:top-8">
-
-            <div className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-white/70 shadow-[0_0_12px_rgba(255,255,255,0.7)]" />
-
-              <p className="text-[10px] uppercase tracking-[0.2em] text-white/30">
-                Currently
-              </p>
+              {/* FLOATING BADGES */}
+              {[
+                { label: "Python", position: "left-2 top-20", color: "text-blue-300", delay: 0 },
+                { label: "AI / ML", position: "right-2 top-24", color: "text-purple-300", delay: 0.5 },
+                { label: "NLP", position: "bottom-8 left-5", color: "text-cyan-300", delay: 1 },
+                { label: "FastAPI", position: "bottom-5 right-5", color: "text-blue-300", delay: 1.5 },
+              ].map((badge) => (
+                <motion.div
+                  key={badge.label}
+                  animate={{ y: [0, -7, 0] }}
+                  transition={{
+                    duration: 3,
+                    delay: badge.delay,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className={`absolute ${badge.position} rounded-xl border border-white/10 bg-black/70 px-3 py-2 shadow-xl backdrop-blur-xl`}
+                >
+                  <span className={`text-xs font-medium ${badge.color}`}>
+                    {badge.label}
+                  </span>
+                </motion.div>
+              ))}
             </div>
 
-            <p className="mt-2 text-sm text-white/70">
-              Building & Learning
-            </p>
+            {/* CODE CARD */}
+            <motion.div
+              whileHover={{ borderColor: "rgba(139,92,246,0.35)" }}
+              className="relative rounded-2xl border border-white/10 bg-black/50 p-4 backdrop-blur-xl sm:p-5"
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <span className="text-xs text-white/40">
+                  developer.py
+                </span>
 
-          </div>
+                <span className="text-[10px] text-emerald-400">
+                  ● Python
+                </span>
+              </div>
 
-          {/* BOTTOM CARD */}
-          <div className="fade-up-delay-3 absolute bottom-7 left-3 rounded-2xl border border-white/10 bg-black/70 px-5 py-4 shadow-2xl backdrop-blur-xl sm:bottom-9 sm:left-7">
+              <div className="space-y-2 font-mono text-xs sm:text-sm">
+                <p>
+                  <span className="text-purple-400">class</span>{" "}
+                  <span className="text-blue-300">Developer</span>
+                  <span className="text-white/50">:</span>
+                </p>
 
-            <p className="text-[10px] uppercase tracking-[0.2em] text-white/30">
-              Focus
-            </p>
+                <p className="pl-4 text-white/50">
+                  name = <span className="text-emerald-300">"Shruti Sharma"</span>
+                </p>
 
-            <p className="mt-2 text-sm text-white/70">
-              AI · ML · Software
-            </p>
+                <p className="pl-4 text-white/50">
+                  focus = <span className="text-emerald-300">"AI + ML"</span>
+                </p>
 
-          </div>
+                <p className="pl-4 text-white/50">
+                  building = <span className="text-emerald-300">"Something useful"</span>
+                </p>
+              </div>
+            </motion.div>
 
-          {/* CORNER LABEL */}
-          <div className="absolute bottom-4 right-5 text-[9px] uppercase tracking-[0.25em] text-white/20">
-            2026 · Portfolio
-          </div>
+            {/* BOTTOM LABEL */}
+            <div className="relative mt-5 flex items-center justify-between">
+              <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
+                Curious mind. Constant builder.
+              </span>
 
-        </div>
+              <span className="text-xs text-purple-300">
+                ✦ 2026
+              </span>
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;
