@@ -1,7 +1,7 @@
 import useReveal from '../useReveal'
 
 const projects = [
-  {
+{
     number: '01',
     title: 'NewsLens',
     subtitle: 'Hyper-Personalization Engine',
@@ -20,28 +20,24 @@ const projects = [
       ['4×', 'Faster'],
     ],
   },
-  {
+{
     number: '02',
-    title: 'AI Mock Interview',
-    subtitle: 'Resume-Aware Interview System',
+    title: 'PaperPilot',
+    subtitle: 'Research Paper Intelligence',
     description:
-      'A resume-aware interview platform that generates role-relevant questions, evaluates answers, and creates automated reports.',
-    tech: ['Python', 'Streamlit', 'NLP', 'TF-IDF'],
-    github:
-      'https://github.com/shrutisharma26/AI-Mock-Interview-System',
+      'An AI-powered research assistant that lets users upload academic PDFs, ask contextual questions, explore summaries and findings, and compare multiple papers with page-level citations.',
+    tech: [
+      'Python',
+      'Streamlit',
+      'RAG',
+      'FAISS',
+      'Sentence Transformers',
+      'Ollama',
+    ],
+    github: 'https://github.com/shrutisharma26/PaperPilot',
   },
-  {
+{
     number: '03',
-    title: 'Resume ATS Analyzer',
-    subtitle: 'NLP-Based Resume Scoring',
-    description:
-      'An NLP-based tool that compares resumes against job descriptions, identifies missing skills, and visualizes match scores.',
-    tech: ['Python', 'Streamlit', 'scikit-learn', 'Plotly'],
-    github:
-      'https://github.com/shrutisharma26/Resume-ATS-Analyzer',
-  },
-  {
-    number: '04',
     title: 'Customer Query Classifier',
     subtitle: 'NLP Support & FAQ API',
     description:
@@ -56,6 +52,26 @@ const projects = [
     github:
       'https://github.com/shrutisharma26/customer-query-classifier',
   },
+{
+    number: '04',
+    title: 'AI Mock Interview',
+    subtitle: 'Resume-Aware Interview System',
+    description:
+      'A resume-aware interview platform that generates role-relevant questions, evaluates answers, and creates automated reports.',
+    tech: ['Python', 'Streamlit', 'NLP', 'TF-IDF'],
+    github:
+      'https://github.com/shrutisharma26/AI-Mock-Interview-System',
+  },
+{
+    number: '05',
+    title: 'Resume ATS Analyzer',
+    subtitle: 'NLP-Based Resume Scoring',
+    description:
+      'An NLP-based tool that compares resumes against job descriptions, identifies missing skills, and visualizes match scores.',
+    tech: ['Python', 'Streamlit', 'scikit-learn', 'Plotly'],
+    github:
+      'https://github.com/shrutisharma26/Resume-ATS-Analyzer',
+  }
 ]
 
 const Projects = () => {
@@ -336,7 +352,7 @@ const Projects = () => {
                   </p>
 
                   {/* CUSTOMER QUERY CLASSIFIER VISUAL */}
-                  {project.number === '04' ? (
+                  {project.number === '03' ? (
 
                     <div className="mt-8 rounded-2xl border border-white/10 bg-black/40 p-5">
 
@@ -407,7 +423,7 @@ const Projects = () => {
 
                     </div>
 
-                  ) : project.number === '02' ? (
+                  ) : project.number === '04' ? (
 
                     <div className="mt-8 rounded-2xl border border-white/10 bg-black/40 p-5">
 
@@ -445,49 +461,55 @@ const Projects = () => {
                       </div>
                     </div>
 
+                  ) : project.number === '02' ? (
+
+                    <div className="mt-8 rounded-2xl border border-white/10 bg-black/40 p-5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
+                          Research Workflow
+                        </span>
+                        <span className="text-xs text-white/40">RAG pipeline</span>
+                      </div>
+
+                      <div className="mt-5 grid grid-cols-4 gap-2">
+                        {['PDF', 'Chunks', 'FAISS', 'Qwen'].map((step, index) => (
+                          <div key={step} className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-center">
+                            <div className="mx-auto flex h-7 w-7 items-center justify-center rounded-full border border-white/10 text-[9px] text-white/40">
+                              0{index + 1}
+                            </div>
+                            <p className="mt-2 text-[9px] text-white/40">{step}</p>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.02] p-4">
+                        <p className="text-[9px] uppercase tracking-[0.2em] text-white/25">
+                          Grounded answers
+                        </p>
+                        <p className="mt-2 text-sm leading-relaxed text-white/60">
+                          Retrieve relevant passages → generate answers → cite PDF pages
+                        </p>
+                      </div>
+                    </div>
+
                   ) : (
 
                     <div className="mt-8 rounded-2xl border border-white/10 bg-black/40 p-5">
-
                       <div className="flex items-center justify-between">
-
-                        <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
-                          Resume Analysis
-                        </span>
-
-                        <span className="text-xs text-white/50">
-                          87%
-                        </span>
-
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">Resume Analysis</span>
+                        <span className="text-xs text-white/50">87%</span>
                       </div>
-
                       <div className="mt-5 h-2 overflow-hidden rounded-full bg-white/5">
                         <div className="h-full w-[87%] rounded-full bg-white/30" />
                       </div>
-
                       <div className="mt-5 grid grid-cols-3 gap-2">
-
-                        {[
-                          ['Match', '87%'],
-                          ['Skills', '14'],
-                          ['Gaps', '3'],
-                        ].map(([label, value]) => (
-                          <div
-                            key={label}
-                            className="rounded-xl border border-white/10 bg-white/[0.03] p-3"
-                          >
-                            <p className="text-[9px] text-white/25">
-                              {label}
-                            </p>
-
-                            <p className="mt-1 text-sm text-white/60">
-                              {value}
-                            </p>
+                        {[['Match', '87%'], ['Skills', '14'], ['Gaps', '3']].map(([label, value]) => (
+                          <div key={label} className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+                            <p className="text-[9px] text-white/25">{label}</p>
+                            <p className="mt-1 text-sm text-white/60">{value}</p>
                           </div>
                         ))}
-
                       </div>
-
                     </div>
                   )}
 
