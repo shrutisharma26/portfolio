@@ -1,216 +1,92 @@
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+const links = [
+  { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
+  { label: "Projects", href: "#projects" },
+  { label: "Education", href: "#education" },
+  { label: "Achievements", href: "#achievements" },
+  { label: "Contact", href: "#contact" },
+];
 
-  const links = [
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Education", href: "#education" },
-    { name: "Achievements", href: "#achievement" },
-    { name: "Contact", href: "#contact" },
-  ];
-
-  useEffect(() => {
-    const sections = [
-      "home",
-      "about",
-      "skills",
-      "projects",
-      "education",
-      "achievement",
-      "contact",
-    ];
-
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY + 180;
-      let currentSection = "home";
-
-      sections.forEach((id) => {
-        const section = document.getElementById(id);
-
-        if (!section) return;
-
-        const sectionTop = section.offsetTop;
-        const sectionBottom = sectionTop + section.offsetHeight;
-
-        if (
-          scrollPosition >= sectionTop &&
-          scrollPosition < sectionBottom
-        ) {
-          currentSection = id;
-        }
-      });
-
-      setActiveSection(currentSection);
-    };
-
-    handleScroll();
-
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const closeMenu = () => setIsOpen(false);
+export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <motion.nav
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed left-0 top-0 z-50 w-full border-b border-white/[0.06] bg-[#050508]/75 backdrop-blur-2xl"
+      transition={{ duration: 0.8 }}
+      className="fixed left-0 right-0 top-0 z-50 px-4 pt-4 sm:px-6"
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-12">
-        {/* LOGO */}
-        <motion.a
+      <div className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-white/[0.12] bg-[#090D0C]/75 px-5 py-3 shadow-[0_8px_35px_rgba(0,0,0,0.4),0_0_25px_rgba(200,255,0,0.025)] backdrop-blur-2xl sm:px-8">
+        {/* Logo */}
+        <a
           href="#home"
-          onClick={closeMenu}
-          whileHover={{ scale: 1.05 }}
-          className="group text-xl font-bold tracking-tight text-white"
+          className="whitespace-nowrap text-xl font-bold tracking-tight text-white sm:text-2xl"
         >
-          SHRUTI
-          <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-            .
-          </span>
-        </motion.a>
+          Shruti<span className="text-[#C8FF00]">.</span>
+        </a>
 
-        {/* DESKTOP NAVIGATION */}
+        {/* Desktop navigation */}
         <div className="hidden items-center gap-5 lg:flex xl:gap-7">
-          {links.map((link, index) => {
-            const sectionId = link.href.replace("#", "");
-            const isActive = activeSection === sectionId;
-
-            return (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + index * 0.06 }}
-                className={`group relative py-2 text-sm transition duration-300 ${
-                  isActive
-                    ? "text-white"
-                    : "text-white/40 hover:text-white"
-                }`}
-              >
-                {link.name}
-
-                <motion.span
-                  className="absolute -bottom-0.5 left-0 h-[2px] rounded-full bg-gradient-to-r from-purple-400 to-blue-400"
-                  initial={false}
-                  animate={{ width: isActive ? "100%" : "0%" }}
-                  transition={{ duration: 0.3 }}
-                />
-
-                {!isActive && (
-                  <span className="absolute -bottom-0.5 left-0 h-[2px] w-0 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 transition-all duration-300 group-hover:w-full" />
-                )}
-              </motion.a>
-            );
-          })}
+          {links.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="whitespace-nowrap text-xs text-white/60 transition-colors duration-300 hover:text-[#C8FF00] xl:text-sm"
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
 
-        {/* DESKTOP ACTIONS */}
-        <div className="hidden items-center gap-3 lg:flex">
-          <motion.a
-            whileHover={{ y: -2 }}
-            href="/Shruti_Sharma_Resume.pdf"
-            download
-            className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/50 transition hover:border-purple-400/30 hover:text-white"
-          >
-            Resume ↓
-          </motion.a>
-
-          <motion.a
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            href="#contact"
-            className="rounded-full bg-gradient-to-r from-purple-500 to-blue-500 px-5 py-2.5 text-sm font-medium text-white transition duration-300 hover:shadow-lg hover:shadow-purple-500/20"
-          >
-            Let's Talk ↗
-          </motion.a>
-        </div>
-
-        {/* MOBILE MENU BUTTON */}
-        <motion.button
-          type="button"
-          whileTap={{ scale: 0.9 }}
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-white/70 transition hover:border-purple-400/30 hover:text-white lg:hidden"
-          aria-label="Toggle navigation menu"
-          aria-expanded={isOpen}
+        {/* Desktop contact button */}
+        <a
+          href="#contact"
+          className="hidden rounded-full border border-[#C8FF00]/30 bg-[#C8FF00]/[0.06] px-5 py-2 text-xs text-[#C8FF00] transition-all duration-300 hover:border-[#C8FF00]/70 hover:bg-[#C8FF00]/[0.12] hover:shadow-[0_0_20px_rgba(200,255,0,0.08)] lg:block"
         >
-          <span className="text-xl">{isOpen ? "×" : "☰"}</span>
-        </motion.button>
+          Let&apos;s connect ↗
+        </a>
+
+        {/* Mobile menu button */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-xl text-[#C8FF00] transition-colors hover:bg-[#C8FF00]/10 lg:hidden"
+        >
+          {menuOpen ? "×" : "☰"}
+        </button>
       </div>
 
-      {/* MOBILE MENU */}
+      {/* Mobile dropdown */}
       <AnimatePresence>
-        {isOpen && (
+        {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden border-t border-white/[0.06] bg-[#08080d]/95 lg:hidden"
+            initial={{ opacity: 0, y: -10, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+            className="mx-auto mt-3 max-w-7xl rounded-3xl border border-white/[0.12] bg-[#090D0C]/90 p-4 shadow-[0_15px_40px_rgba(0,0,0,0.45)] backdrop-blur-2xl lg:hidden"
           >
-            <div className="px-5 py-5 sm:px-8">
-              <div className="flex flex-col">
-                {links.map((link, index) => {
-                  const sectionId = link.href.replace("#", "");
-                  const isActive = activeSection === sectionId;
-
-                  return (
-                    <motion.a
-                      key={link.name}
-                      href={link.href}
-                      onClick={closeMenu}
-                      initial={{ opacity: 0, x: -15 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.04 }}
-                      className={`border-b border-white/[0.06] py-4 text-base transition ${
-                        isActive
-                          ? "text-purple-300"
-                          : "text-white/50 hover:text-white"
-                      }`}
-                    >
-                      {link.name}
-                    </motion.a>
-                  );
-                })}
-
+            <div className="flex flex-col gap-1">
+              {links.map((link) => (
                 <a
-                  href="/Shruti_Sharma_Resume.pdf"
-                  download
-                  onClick={closeMenu}
-                  className="mt-5 rounded-xl border border-white/10 py-3 text-center text-sm text-white/60 transition hover:border-purple-400/30 hover:text-white"
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="rounded-xl px-4 py-3 text-sm text-white/65 transition-colors hover:bg-[#C8FF00]/[0.06] hover:text-[#C8FF00]"
                 >
-                  Download Resume ↓
+                  {link.label}
                 </a>
-
-                <a
-                  href="#contact"
-                  onClick={closeMenu}
-                  className="mt-3 rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 py-3 text-center text-sm font-medium text-white"
-                >
-                  Let's Talk ↗
-                </a>
-              </div>
+              ))}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </motion.nav>
   );
-};
-
-export default Navbar;
+}

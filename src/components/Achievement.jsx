@@ -1,128 +1,145 @@
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const achievements = [
   {
-    category: "HACK60 · IIT Mandi × HCLTech",
-    title: "2nd Place",
+    number: "01",
+    title: "2nd Place — HACK60",
+    subtitle: "IIT Mandi × HCLTech",
     description:
-      "Secured second place at HACK60, a hackathon organized by IIT Mandi in collaboration with HCLTech.",
+      "Secured second place at HACK60 with NewsLens, a hybrid news recommendation engine combining machine learning, personalization, and AI-powered reranking.",
+    tags: ["Hackathon", "AI/ML", "News Recommendation"],
     icon: "✦",
-    accent: "from-purple-400 to-blue-400",
-    glow: "bg-purple-500/[0.12]",
-    border: "hover:border-purple-400/30",
-    badge: "Hackathon",
-  },
-  {
-    category: "INTER IIT 8.0",
-    title: "2nd Place · Dance",
-    description:
-      "Secured second place in the Dance competition at Inter IIT 8.0.",
-    icon: "♫",
-    accent: "from-pink-400 to-purple-400",
-    glow: "bg-pink-500/[0.12]",
-    border: "hover:border-pink-400/30",
-    badge: "Performance",
   },
 ];
 
-const Achievement = () => {
+export default function Achievement() {
+  const sectionRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [5, 0, -3]);
+  const y = useTransform(scrollYProgress, [0, 1], [35, -35]);
+
   return (
     <section
-      id="achievement"
-      className="relative overflow-hidden border-t border-white/10 px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-32"
+      id="achievements"
+      ref={sectionRef}
+      className="relative isolate overflow-hidden bg-[#050708] px-5 py-24 sm:px-8 md:px-16 md:py-32"
     >
-      {/* BACKGROUND GLOW */}
-      <div className="pointer-events-none absolute -left-40 top-20 h-96 w-96 rounded-full bg-purple-600/[0.08] blur-[140px]" />
+      {/* Ambient neon lighting */}
+      <div className="pointer-events-none absolute -left-20 top-1/4 h-72 w-72 rounded-full bg-[#C8FF00]/10 blur-[110px]" />
+      <div className="pointer-events-none absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-[#4D7600]/10 blur-[110px]" />
 
-      <div className="relative mx-auto max-w-7xl">
-        {/* HEADER */}
-        <motion.div
-          className="mb-14"
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <p className="mb-4 text-sm uppercase tracking-[0.3em] text-purple-300/60">
-            05 — Achievements
+      {/* Subtle technical grid */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(200,255,0,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(200,255,0,0.5) 1px, transparent 1px)",
+          backgroundSize: "65px 65px",
+        }}
+      />
+
+      <motion.div
+        style={{ rotateX, y, transformPerspective: 1200 }}
+        className="relative mx-auto max-w-7xl"
+      >
+        {/* Heading */}
+        <div className="mb-14">
+          <p className="mb-4 flex items-center gap-3 font-mono text-xs tracking-[0.25em] text-[#C8FF00] sm:text-sm">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#C8FF00] shadow-[0_0_12px_rgba(200,255,0,0.7)]" />
+            05 / RECOGNITION
           </p>
 
-          <h2 className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-            A few things
-            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-              {" "}I'm proud of.
-            </span>
+          <h2 className="break-words font-sans text-5xl font-bold tracking-tight text-[#F2F5F3] sm:text-6xl md:text-7xl">
+            A little <span className="text-[#C8FF00]">recognition.</span>
           </h2>
 
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-white/40">
-            A little recognition for the things I love doing — both in tech
-            and beyond.
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#A1AAA5] sm:text-lg">
+            A milestone that made the late nights worth it.
           </p>
-        </motion.div>
+        </div>
 
-        {/* ACHIEVEMENT CARDS */}
-        <div className="grid gap-5 md:grid-cols-2">
+        {/* Achievement cards */}
+        <div className="grid gap-6 md:grid-cols-2">
           {achievements.map((achievement, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 40, scale: 0.97 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{
-                duration: 0.65,
-                delay: index * 0.18,
-                ease: [0.22, 1, 0.36, 1],
+            <motion.article
+              key={achievement.number}
+              initial={{ opacity: 0, y: 40, rotateY: -5 }}
+              whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, delay: index * 0.15 }}
+              whileHover={{ y: -10, rotateY: 2, scale: 1.015 }}
+              style={{
+                transformPerspective: 1000,
+                transformStyle: "preserve-3d",
               }}
-              whileHover={{ y: -6, scale: 1.01 }}
-              className={`group relative overflow-hidden rounded-3xl border border-white/10 bg-[#0c0c14] p-7 transition duration-300 ${achievement.border} sm:p-10`}
+              className="group relative min-w-0 overflow-hidden rounded-[2rem] border border-white/[0.09] bg-gradient-to-br from-[#12191A]/95 via-[#0D1213]/90 to-[#080B0C]/95 p-6 shadow-[0_15px_50px_rgba(0,0,0,0.3)] backdrop-blur-2xl transition-all duration-500 hover:border-[#C8FF00]/30 hover:shadow-[0_25px_70px_rgba(0,0,0,0.4),0_0_30px_rgba(200,255,0,0.05)] sm:p-10"
             >
-              {/* CARD GLOW */}
-              <div
-                className={`pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full ${achievement.glow} blur-[100px] transition duration-500 group-hover:scale-150`}
-              />
+              {/* Card glow */}
+              <div className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-[#C8FF00]/[0.06] blur-3xl transition-all duration-500 group-hover:bg-[#C8FF00]/[0.12]" />
+
+              {/* Neon corners */}
+              <div className="pointer-events-none absolute left-0 top-0 h-8 w-8 rounded-tl-[2rem] border-l border-t border-[#C8FF00]/30" />
+              <div className="pointer-events-none absolute bottom-0 right-0 h-8 w-8 rounded-br-[2rem] border-b border-r border-[#C8FF00]/20" />
 
               <div className="relative">
-                {/* ICON + CATEGORY */}
-                <div className="flex items-center justify-between">
-                  <motion.div
-                    whileHover={{ rotate: 8, scale: 1.1 }}
-                    className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-2xl text-white/70"
+                <div className="mb-8 flex items-center justify-between">
+                  <span className="font-mono text-xs tracking-widest text-[#75817B]">
+                    ACHIEVEMENT {achievement.number}
+                  </span>
+
+                  <motion.span
+                    animate={{ rotate: [0, 10, -10, 0] }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="text-4xl text-[#C8FF00] drop-shadow-[0_0_12px_rgba(200,255,0,0.25)]"
                   >
                     {achievement.icon}
-                  </motion.div>
-
-                  <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-white/40">
-                    {achievement.badge}
-                  </span>
+                  </motion.span>
                 </div>
 
-                <p className="mt-8 text-xs uppercase tracking-[0.2em] text-white/30">
-                  {achievement.category}
+                <p className="mb-3 font-mono text-xs tracking-widest text-[#C8FF00]">
+                  {achievement.subtitle}
                 </p>
 
-                <h3
-                  className={`mt-3 bg-gradient-to-r ${achievement.accent} bg-clip-text text-3xl font-semibold tracking-tight text-transparent sm:text-4xl`}
-                >
+                <h3 className="break-words font-sans text-3xl font-bold leading-tight tracking-tight text-[#F2F5F3] sm:text-4xl">
                   {achievement.title}
                 </h3>
 
-                <p className="mt-5 max-w-xl leading-relaxed text-white/45">
+                <p className="mt-6 break-words text-sm leading-7 text-[#A1AAA5] sm:text-base">
                   {achievement.description}
                 </p>
 
-                <div className="mt-8 h-px w-full bg-gradient-to-r from-white/10 to-transparent" />
+                <div className="mt-8 flex flex-wrap gap-2">
+                  {achievement.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-[#C8FF00]/15 bg-[#C8FF00]/[0.035] px-3 py-2 font-mono text-xs text-[#A1AAA5] transition-all duration-300 hover:border-[#C8FF00]/40 hover:bg-[#C8FF00]/[0.08] hover:text-[#C8FF00]"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
 
-                <p className="mt-4 text-xs text-white/25">
-                  Achievement · {String(index + 1).padStart(2, "0")}
-                </p>
+                <div className="mt-8 border-t border-white/[0.07] pt-5">
+                  <span className="font-mono text-[10px] tracking-[0.2em] text-[#75817B]">
+                    BUILD · EXPERIMENT · INNOVATE
+                  </span>
+                </div>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
-};
-
-export default Achievement;
+}

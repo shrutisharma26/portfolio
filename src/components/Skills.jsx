@@ -1,212 +1,134 @@
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
-const skills = [
+const skillGroups = [
   {
-    title: "Programming Languages",
-    icon: "01",
-    accent: "from-purple-500/20 to-transparent",
-    items: ["Python", "C++", "JavaScript", "SQL", "HTML", "CSS"],
+    number: "01",
+    title: "Languages",
+    skills: ["Python", "C++", "SQL", "JavaScript", "Java", "HTML / CSS"],
   },
   {
+    number: "02",
     title: "Machine Learning",
-    icon: "02",
-    accent: "from-blue-500/20 to-transparent",
-    items: [
-      "Machine Learning",
-      "Random Forest",
-      "Classification",
-      "Reinforcement Learning",
-      "scikit-learn",
-      "Recommendation Systems",
-    ],
+    skills: ["Scikit-learn", "NLP", "Recommender Systems", "OpenCV", "RL"],
   },
   {
-    title: "AI, NLP & LLMs",
-    icon: "03",
-    accent: "from-violet-500/20 to-transparent",
-    items: [
-      "NLP",
-      "TF-IDF",
-      "Transformers",
-      "LLMs",
-      "RAG",
-      "FAISS",
-      "Sentence Transformers",
-    ],
+    number: "03",
+    title: "Generative AI",
+    skills: ["LLMs", "RAG", "Groq / Llama 3", "SBERT", "Ollama", "FAISS"],
   },
   {
-    title: "Backend & APIs",
-    icon: "04",
-    accent: "from-cyan-500/20 to-transparent",
-    items: ["FastAPI", "Flask", "REST APIs", "Streamlit", "SQLite"],
-  },
-  {
-    title: "Data & Visualization",
-    icon: "05",
-    accent: "from-indigo-500/20 to-transparent",
-    items: [
-      "Pandas",
-      "NumPy",
-      "Plotly",
-      "Recharts",
-      "Data Analysis",
-      "Data Visualization",
-    ],
-  },
-  {
-    title: "Tools & Core CS",
-    icon: "06",
-    accent: "from-fuchsia-500/20 to-transparent",
-    items: [
-      "Git",
-      "GitHub",
-      "Vercel",
-      "Streamlit Cloud",
-      "DSA",
-      "OOP",
-      "Problem Solving",
-    ],
+    number: "04",
+    title: "Tools & Engineering",
+    skills: ["Flask", "REST APIs", "Git / GitHub", "Streamlit", "CI/CD", "Vercel"],
   },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
-};
+export default function Skills() {
+  const sectionRef = useRef(null);
 
-const cardVariants = {
-  hidden: {
-    opacity: 0,
-    y: 35,
-    scale: 0.97,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.65,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
 
-const Skills = () => {
+  const rotateX = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    [8, 0, -5]
+  );
+
+  const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
+
   return (
     <section
       id="skills"
-      className="relative overflow-hidden border-t border-white/10 px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-32"
+      ref={sectionRef}
+      className="relative overflow-hidden px-5 py-24 sm:px-8 md:px-16 md:py-32"
     >
-      {/* BACKGROUND GLOW */}
-      <div className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-purple-600/[0.08] blur-[140px]" />
-      <div className="pointer-events-none absolute -right-40 bottom-0 h-80 w-80 rounded-full bg-blue-600/[0.08] blur-[140px]" />
+      {/* Ambient neon glow */}
+      <div className="pointer-events-none absolute right-[8%] top-[15%] h-72 w-72 rounded-full bg-[#C8FF00]/[0.06] blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-[5%] left-[5%] h-64 w-64 rounded-full bg-emerald-400/[0.04] blur-[110px]" />
 
-      <div className="relative mx-auto max-w-7xl">
-        {/* HEADER */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7 }}
-          className="mb-14 flex flex-col gap-5 md:flex-row md:items-end md:justify-between"
-        >
-          <div>
-            <p className="mb-4 text-sm uppercase tracking-[0.3em] text-purple-300/60">
-              02 — Skills & Technologies
-            </p>
-
-            <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-              My technical <span className="text-white/35">toolkit.</span>
-            </h2>
-          </div>
-
-          <p className="max-w-sm text-sm leading-relaxed text-white/40">
-            Technologies and concepts I use to build machine learning
-            systems, AI applications, and software projects.
+      <motion.div
+        style={{ rotateX, y, transformPerspective: 1200 }}
+        className="relative mx-auto max-w-7xl"
+      >
+        {/* Section heading */}
+        <div className="mb-14">
+          <p className="mb-4 font-mono text-xs tracking-[0.25em] text-[#C8FF00] sm:text-sm">
+            02 / MY TOOLKIT
           </p>
-        </motion.div>
 
-        {/* STAGGERED SKILL CARDS */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-        >
-          {skills.map((skill) => (
+          <h2 className="text-5xl font-bold tracking-tight text-[#F2F5F3] sm:text-6xl md:text-7xl">
+            Things I{" "}
+            <span className="text-[#C8FF00]">
+              work with.
+            </span>
+          </h2>
+
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#A1AAA5] sm:text-lg">
+            A growing collection of tools and technologies I use to
+            experiment, build, and bring ideas to life.
+          </p>
+        </div>
+
+        {/* Skill cards */}
+        <div className="grid min-w-0 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {skillGroups.map((group, index) => (
             <motion.div
-              key={skill.title}
-              variants={cardVariants}
+              key={group.number}
+              initial={{ opacity: 0, y: 40, rotateY: -5 }}
+              whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, delay: index * 0.12 }}
               whileHover={{
-                y: -6,
-                transition: { duration: 0.25 },
+                y: -10,
+                rotateY: index % 2 === 0 ? 3 : -3,
+                scale: 1.02,
               }}
-              className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#0c0c14] p-6 transition-colors duration-300 hover:border-purple-400/30 sm:p-8"
+              style={{ transformPerspective: 1000 }}
+              className="group relative min-w-0 overflow-hidden rounded-[1.75rem] border border-white/[0.09] bg-gradient-to-br from-[#151B1C]/90 via-[#0D1213]/90 to-[#101719]/95 p-6 shadow-[0_12px_40px_rgba(0,0,0,0.25)] backdrop-blur-2xl transition-all duration-500 hover:border-[#C8FF00]/30 hover:shadow-[0_20px_60px_rgba(200,255,0,0.07)]"
             >
-              {/* CARD GLOW */}
-              <div
-                className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${skill.accent} opacity-40 transition duration-500 group-hover:opacity-100`}
-              />
+              {/* Card glow */}
+              <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-[#C8FF00]/[0.07] blur-3xl transition-all duration-500 group-hover:bg-[#C8FF00]/[0.14]" />
+
+              {/* Decorative corner */}
+              <div className="absolute right-5 top-5 h-3 w-3 border-r border-t border-[#C8FF00]/30 transition-all duration-300 group-hover:h-5 group-hover:w-5 group-hover:border-[#C8FF00]/70" />
 
               <div className="relative">
-                {/* CARD HEADER */}
-                <div className="mb-7 flex items-center justify-between">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-xs text-purple-300">
-                    {skill.icon}
-                  </span>
+                <span className="font-mono text-xs tracking-[0.2em] text-[#C8FF00]/70">
+                  / {group.number}
+                </span>
 
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-white/20">
-                    Skills
-                  </span>
-                </div>
-
-                <h3 className="text-xl font-medium tracking-tight text-white/90">
-                  {skill.title}
+                <h3 className="mt-4 break-words text-2xl font-semibold tracking-tight text-[#F2F5F3] transition-colors duration-300 group-hover:text-[#C8FF00]">
+                  {group.title}
                 </h3>
 
-                {/* SKILL TAGS */}
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {skill.items.map((item, index) => (
+                <div className="mt-6 flex min-w-0 flex-wrap gap-2">
+                  {group.skills.map((skill) => (
                     <motion.span
-                      key={item}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        delay: index * 0.035,
-                        duration: 0.3,
-                      }}
-                      className="rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-xs text-white/50 transition duration-300 group-hover:border-white/15 group-hover:text-white/75"
+                      key={skill}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      className="max-w-full break-words rounded-full border border-white/[0.09] bg-white/[0.035] px-3 py-2 text-xs leading-relaxed text-[#A1AAA5] transition-all duration-300 hover:border-[#C8FF00]/40 hover:bg-[#C8FF00]/[0.06] hover:text-[#C8FF00]"
                     >
-                      {item}
+                      {skill}
                     </motion.span>
                   ))}
                 </div>
               </div>
+
+              {/* Bottom accent */}
+              <div className="absolute bottom-0 left-6 right-6 h-px origin-left scale-x-0 bg-gradient-to-r from-[#C8FF00]/60 to-transparent transition-transform duration-500 group-hover:scale-x-100" />
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
-        {/* FOOTER NOTE */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="mt-8 flex items-center gap-3 text-xs text-white/30"
-        >
-          <span className="h-px w-8 bg-purple-400/50" />
-          Always learning, always building.
-        </motion.div>
-      </div>
+        <p className="mt-8 text-right font-mono text-xs tracking-wide text-[#75817B]">
+          // toolkit.exe — continuously evolving
+        </p>
+      </motion.div>
     </section>
   );
-};
-
-export default Skills;
+}

@@ -1,206 +1,159 @@
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
-const Education = () => {
-  const coursework = [
-    "Data Structures & Algorithms",
-    "Machine Learning",
-    "Computer Organisation",
-  ];
+const education = [
+  {
+    period: "2023 — 2027",
+    degree: "B.Tech",
+    field: "Data Science Engineering",
+    institution: "Indian Institute of Technology, Mandi",
+    location: "Himachal Pradesh, India",
+    note: "Exploring the intersection of data, intelligent systems, and technology.",
+    current: true,
+  },
+];
 
-  const fadeUp = {
-    hidden: { opacity: 0, y: 28 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
-    },
-  };
+const tags = ["Data Science", "Machine Learning", "AI", "Engineering"];
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 35, scale: 0.98 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
-    },
-  };
+export default function Education() {
+  const sectionRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [6, 0, -4]);
+  const y = useTransform(scrollYProgress, [0, 1], [45, -45]);
 
   return (
     <section
       id="education"
-      className="relative overflow-hidden border-t border-white/10 px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-32"
+      ref={sectionRef}
+      className="relative isolate overflow-hidden bg-[#050708] px-5 py-24 sm:px-8 md:px-16 md:py-32"
     >
-      {/* BACKGROUND GLOW */}
-      <div className="pointer-events-none absolute -right-40 top-20 h-96 w-96 rounded-full bg-blue-600/[0.08] blur-[140px]" />
+      {/* Ambient neon lighting */}
+      <div className="pointer-events-none absolute -left-24 top-1/4 h-80 w-80 rounded-full bg-[#C8FF00]/10 blur-[120px]" />
+      <div className="pointer-events-none absolute -right-20 bottom-0 h-96 w-96 rounded-full bg-[#4D7600]/10 blur-[130px]" />
 
-      <div className="relative mx-auto max-w-7xl">
-        {/* HEADER */}
-        <motion.div
-          className="mb-14"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          <p className="mb-4 text-sm uppercase tracking-[0.3em] text-purple-300/60">
-            04 — Education
+      {/* Subtle grid */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(200,255,0,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(200,255,0,0.5) 1px, transparent 1px)",
+          backgroundSize: "65px 65px",
+        }}
+      />
+
+      <motion.div
+        style={{ rotateX, y, transformPerspective: 1400 }}
+        className="relative mx-auto max-w-7xl"
+      >
+        {/* Section heading */}
+        <div className="mb-14">
+          <p className="mb-4 flex items-center gap-3 font-mono text-xs tracking-[0.25em] text-[#C8FF00] sm:text-sm">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#C8FF00] shadow-[0_0_12px_rgba(200,255,0,0.7)]" />
+            04 / EDUCATION
           </p>
 
-          <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-            Where I've been
-            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-              {" "}learning.
-            </span>
+          <h2 className="break-words font-sans text-5xl font-bold tracking-tight text-[#F2F5F3] sm:text-6xl md:text-7xl">
+            The <span className="text-[#C8FF00]">foundation.</span>
           </h2>
-        </motion.div>
 
-        <div className="space-y-5">
-          {/* IIT MANDI */}
-          <motion.div
-            variants={cardVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-            whileHover={{ y: -3 }}
-            className="group relative overflow-hidden rounded-3xl border border-purple-400/20 bg-gradient-to-br from-purple-500/[0.08] via-[#0c0c14] to-blue-500/[0.04] p-6 transition duration-300 hover:border-purple-400/40 sm:p-10"
-          >
-            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-purple-500/[0.08] blur-[100px] transition group-hover:bg-purple-500/[0.15]" />
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#A1AAA5] sm:text-lg">
+            Where curiosity meets computation.
+          </p>
+        </div>
 
-            <div className="relative flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
-              <div>
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="rounded-full border border-purple-400/20 bg-purple-400/10 px-3 py-1 text-xs text-purple-300">
-                    Currently pursuing
-                  </span>
+        {/* Timeline */}
+        <div className="relative">
+          <div className="absolute bottom-0 left-[13px] top-0 w-px bg-gradient-to-b from-[#C8FF00]/70 via-[#C8FF00]/20 to-transparent sm:left-[19px]" />
 
-                  <p className="text-sm text-white/30">
-                    2024 — Present
-                  </p>
-                </div>
-
-                <h3 className="mt-5 text-2xl font-semibold tracking-tight sm:text-4xl">
-                  Indian Institute of Technology, Mandi
-                </h3>
-
-                <p className="mt-3 text-lg text-white/50">
-                  B.Tech · Data Science Engineering
-                </p>
-
-                <p className="mt-2 text-sm text-white/30">
-                  Himachal Pradesh, India
-                </p>
-              </div>
+          {education.map((item, index) => (
+            <motion.div
+              key={item.institution}
+              initial={{ opacity: 0, x: -35 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, delay: index * 0.15 }}
+              className="relative pb-8 pl-10 sm:pl-14"
+            >
+              {/* Timeline node */}
+              <div className="absolute left-[7px] top-8 h-3.5 w-3.5 rounded-full border-2 border-[#050708] bg-[#C8FF00] shadow-[0_0_20px_rgba(200,255,0,0.6)] sm:left-[13px] sm:h-4 sm:w-4" />
 
               <motion.div
-                whileHover={{ rotate: 5, scale: 1.05 }}
-                className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-2xl font-bold text-white/70 transition group-hover:border-purple-400/30 group-hover:text-purple-300"
+                whileHover={{ y: -7, rotateX: 2, rotateY: -1 }}
+                transition={{ type: "spring", stiffness: 180, damping: 18 }}
+                style={{ transformPerspective: 1200 }}
+                className="group relative overflow-hidden rounded-[2rem] border border-white/[0.09] bg-gradient-to-br from-[#12191A]/95 via-[#0D1213]/90 to-[#080B0C]/95 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.3)] backdrop-blur-2xl transition-all duration-500 hover:border-[#C8FF00]/30 hover:shadow-[0_30px_80px_rgba(0,0,0,0.4),0_0_30px_rgba(200,255,0,0.05)] sm:p-10"
               >
-                IIT
+                {/* Card glow */}
+                <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-[#C8FF00]/[0.06] blur-[80px] transition-all duration-700 group-hover:bg-[#C8FF00]/[0.12]" />
+
+                <div className="pointer-events-none absolute -bottom-20 -left-20 h-52 w-52 rounded-full bg-[#4D7600]/[0.06] blur-[70px]" />
+
+                {/* Neon corner details */}
+                <div className="pointer-events-none absolute left-0 top-0 h-8 w-8 border-l border-t border-[#C8FF00]/30 rounded-tl-[2rem]" />
+                <div className="pointer-events-none absolute bottom-0 right-0 h-8 w-8 border-b border-r border-[#C8FF00]/20 rounded-br-[2rem]" />
+
+                <div className="relative min-w-0">
+                  <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+                    <span className="font-mono text-xs tracking-widest text-[#C8FF00]">
+                      {item.period}
+                    </span>
+
+                    {item.current && (
+                      <span className="flex items-center gap-2 rounded-full border border-[#C8FF00]/25 bg-[#C8FF00]/[0.06] px-4 py-1.5 font-mono text-[10px] tracking-wider text-[#C8FF00]">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#C8FF00] shadow-[0_0_8px_rgba(200,255,0,0.8)]" />
+                        CURRENTLY PURSUING
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 className="break-words font-sans text-4xl font-bold tracking-tight text-[#F2F5F3] sm:text-5xl">
+                    {item.degree}
+                  </h3>
+
+                  <p className="mt-2 break-words text-xl font-medium text-[#C8FF00] sm:text-2xl">
+                    {item.field}
+                  </p>
+
+                  <div className="mt-7">
+                    <p className="break-words text-lg font-medium text-[#F2F5F3] sm:text-xl">
+                      {item.institution}
+                    </p>
+
+                    <p className="mt-2 break-words font-mono text-xs text-[#75817B]">
+                      {item.location}
+                    </p>
+                  </div>
+
+                  {/* Inner glass panel */}
+                  <div className="mt-8 max-w-2xl rounded-2xl border border-white/[0.07] bg-white/[0.025] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] backdrop-blur-xl sm:p-5">
+                    <p className="text-sm leading-7 text-[#A1AAA5] sm:text-base">
+                      {item.note}
+                    </p>
+                  </div>
+
+                  {/* Focus tags */}
+                  <div className="mt-7 flex flex-wrap gap-2">
+                    {tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-[#C8FF00]/15 bg-[#C8FF00]/[0.035] px-3 py-2 font-mono text-xs text-[#A1AAA5] transition-all duration-300 hover:border-[#C8FF00]/40 hover:bg-[#C8FF00]/[0.08] hover:text-[#C8FF00]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </motion.div>
-            </div>
-
-            <div className="relative mt-10 border-t border-white/10 pt-6">
-              <p className="mb-4 text-xs uppercase tracking-[0.2em] text-white/30">
-                Relevant coursework
-              </p>
-
-              <div className="flex flex-wrap gap-2">
-                {coursework.map((item, index) => (
-                  <motion.span
-                    key={item}
-                    initial={{ opacity: 0, y: 12 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.15 * index, duration: 0.4 }}
-                    whileHover={{ y: -2 }}
-                    className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-white/50 transition hover:border-purple-400/30 hover:text-purple-300"
-                  >
-                    {item}
-                  </motion.span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* CLASS XII */}
-          <motion.div
-            variants={cardVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ delay: 0.15 }}
-            whileHover={{ y: -3 }}
-            className="group rounded-3xl border border-white/10 bg-white/[0.02] p-6 transition duration-300 hover:border-blue-400/20 hover:bg-white/[0.04] sm:p-8"
-          >
-            <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="text-sm text-white/30">
-                  2022 — 2023
-                </p>
-
-                <h3 className="mt-3 text-xl font-medium sm:text-2xl">
-                  Wisdom Public School
-                </h3>
-
-                <p className="mt-2 text-white/40">
-                  Class XII · CBSE
-                </p>
-              </div>
-
-              <div className="sm:text-right">
-                <p className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-4xl font-semibold text-transparent">
-                  94.2%
-                </p>
-
-                <p className="mt-2 text-xs uppercase tracking-[0.2em] text-white/30">
-                  Academic achievement
-                </p>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* CLASS X */}
-          <motion.div
-            variants={cardVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-            transition={{ delay: 0.3 }}
-            whileHover={{ y: -3 }}
-            className="group rounded-3xl border border-white/10 bg-white/[0.02] p-6 transition duration-300 hover:border-purple-400/20 hover:bg-white/[0.04] sm:p-8"
-          >
-            <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <p className="text-sm text-white/30">
-                  2020 — 2021
-                </p>
-
-                <h3 className="mt-3 text-xl font-medium sm:text-2xl">
-                  Wisdom Public School
-                </h3>
-
-                <p className="mt-2 text-white/40">
-                  Class X · CBSE
-                </p>
-              </div>
-
-              <div className="sm:text-right">
-                <p className="bg-gradient-to-r from-purple-400 to-pink-300 bg-clip-text text-4xl font-semibold text-transparent">
-                  90.5%
-                </p>
-
-                <p className="mt-2 text-xs uppercase tracking-[0.2em] text-white/30">
-                  Academic achievement
-                </p>
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
-};
-
-export default Education;
+}

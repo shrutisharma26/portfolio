@@ -1,145 +1,282 @@
 
-import React from "react";
+import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import {
-  ExternalLink,
   ArrowUpRight,
+  X,
   Sparkles,
-  FileText,
+  Search,
   ShieldCheck,
+  FileText,
+  Newspaper,
   MessageSquare,
-  BrainCircuit,
-  FileSearch,
+  Activity,
+  ChevronRight,
+  ExternalLink,
 } from "lucide-react";
-
-// Custom GitHub icon — avoids lucide-react export issues
-function GithubMark({ className = "h-4 w-4" }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-      aria-hidden="true"
-    >
-      <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.16c-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.25 3.33.96.1-.74.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.47.11-3.06 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.73 0c2.19-1.49 3.14-1.18 3.14-1.18.63 1.59.24 2.77.12 3.06.74.81 1.18 1.84 1.18 3.1 0 4.42-2.68 5.39-5.24 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
-    </svg>
-  );
-}
 
 const projects = [
   {
     number: "01",
-    title: "PaperPilot",
-    subtitle: "AI Research Paper Assistant",
+    title: "NewsLens",
+    category: "AI / RECOMMENDER SYSTEMS",
     description:
-      "An AI-powered research assistant that helps users explore academic PDFs, retrieve relevant information, and generate contextual answers using retrieval-augmented generation.",
-    tags: [
-      "Python",
-      "Streamlit",
-      "RAG",
-      "FAISS",
-      "Sentence Transformers",
-      "Ollama",
-    ],
-    github: "https://github.com/shrutisharma26/PaperPilot",
-    icon: FileText,
-    accent: "from-violet-500 to-indigo-500",
-    glow: "rgba(139, 92, 246, 0.18)",
-    preview: "paperpilot",
+      "A hybrid news recommendation engine combining collaborative filtering, semantic understanding, and reinforcement learning for personalized news discovery.",
+    tags: ["Python", "BERT", "NLP", "Reinforcement Learning"],
+    icon: Newspaper,
+    github: "https://github.com/shrutisharma26",
+    featured: true,
+    demo: "news",
   },
   {
     number: "02",
-    title: "Customer Query Classifier",
-    subtitle: "Intelligent Support Automation",
+    title: "Semantic Retrieval Engine",
+    category: "INFORMATION RETRIEVAL",
     description:
-      "A machine learning application that classifies customer queries into categories such as billing, technical support, and general inquiries to streamline support workflows.",
-    tags: ["Python", "Scikit-learn", "TF-IDF", "Flask", "SQLite"],
-    github:
-      "https://github.com/shrutisharma26/customer-query-classifier",
-    icon: MessageSquare,
-    accent: "from-cyan-500 to-blue-500",
-    glow: "rgba(6, 182, 212, 0.16)",
-    preview: "classifier",
+      "A semantic search engine that retrieves relevant information using sentence embeddings and vector similarity rather than keyword matching alone.",
+    tags: ["SBERT", "FAISS", "Python", "REST API"],
+    icon: Search,
+    github: "https://github.com/shrutisharma26",
+    demo: "search",
   },
   {
     number: "03",
     title: "FraudShield",
-    subtitle: "Financial Fraud Detection",
+    category: "MACHINE LEARNING / FINTECH",
     description:
-      "A fraud detection dashboard built around machine learning, designed to analyze transaction data, identify suspicious activity, and visualize fraud-related insights.",
-    tags: ["Python", "Random Forest", "FastAPI", "React", "Recharts"],
-    github: "https://github.com/shrutisharma26/FraudShield",
+      "An explainable fraud detection dashboard designed to identify suspicious transactions and make model predictions easier to interpret.",
+    tags: ["Machine Learning", "React", "Explainable AI"],
     icon: ShieldCheck,
-    accent: "from-blue-500 to-violet-500",
-    glow: "rgba(59, 130, 246, 0.18)",
-    preview: "fraudshield",
+    github: "https://github.com/shrutisharma26",
+    demo: "fraud",
   },
   {
     number: "04",
-    title: "AI Mock Interview System",
-    subtitle: "Personalized Interview Preparation",
+    title: "PaperPilot",
+    category: "GENERATIVE AI / RAG",
     description:
-      "An AI-assisted interview preparation tool that uses resume information and NLP techniques to support personalized interview practice.",
-    tags: ["Python", "Streamlit", "NLP", "TF-IDF"],
-    github:
-      "https://github.com/shrutisharma26/AI-Mock-Interview-System",
-    icon: BrainCircuit,
-    accent: "from-fuchsia-500 to-purple-500",
-    glow: "rgba(217, 70, 239, 0.16)",
-    preview: "interview",
+      "A research assistant that lets users interact with academic PDFs, retrieve relevant passages, and generate grounded answers with citations.",
+    tags: ["RAG", "Ollama", "FAISS", "SBERT"],
+    icon: FileText,
+    github: "https://github.com/shrutisharma26",
+    demo: "paper",
   },
   {
     number: "05",
-    title: "Resume ATS Analyzer",
-    subtitle: "Resume Optimization Tool",
+    title: "Customer Query Classifier",
+    category: "NLP / TEXT CLASSIFICATION",
     description:
-      "A resume analysis application that compares resume content against job descriptions and provides insights to help improve keyword alignment and relevance.",
-    tags: ["Python", "Streamlit", "Scikit-learn", "Plotly"],
-    github:
-      "https://github.com/shrutisharma26/Resume-ATS-Analyzer",
-    icon: FileSearch,
-    accent: "from-indigo-500 to-cyan-500",
-    glow: "rgba(99, 102, 241, 0.18)",
-    preview: "resume",
+      "An NLP-based classifier that categorizes customer messages to support automated routing and faster customer support workflows.",
+    tags: ["Python", "NLP", "Text Classification"],
+    icon: MessageSquare,
+    github: "https://github.com/shrutisharma26",
+    demo: "classifier",
   },
 ];
 
-function ProjectTag({ children }) {
-  return (
-    <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-gray-300 transition-colors hover:border-purple-400/40 hover:text-purple-300">
-      {children}
-    </span>
-  );
-}
+const demoContent = {
+  news: {
+    eyebrow: "PERSONALIZED NEWS INTELLIGENCE",
+    title: "NewsLens",
+    description:
+      "A recommendation interface combining user interests, semantic relevance, and personalized ranking.",
+  },
+  search: {
+    eyebrow: "SEMANTIC INFORMATION RETRIEVAL",
+    title: "Semantic Retrieval",
+    description:
+      "Search across documents using meaning-aware embeddings and vector similarity.",
+  },
+  fraud: {
+    eyebrow: "TRANSACTION INTELLIGENCE",
+    title: "FraudShield",
+    description:
+      "An interactive dashboard concept for exploring transaction risk and model predictions.",
+  },
+  paper: {
+    eyebrow: "RESEARCH PAPER ASSISTANT",
+    title: "PaperPilot",
+    description:
+      "A document-grounded research assistant designed for PDF exploration and question answering.",
+  },
+  classifier: {
+    eyebrow: "CUSTOMER SUPPORT AUTOMATION",
+    title: "Query Classifier",
+    description:
+      "A preview of how incoming customer queries could be categorized and routed.",
+  },
+};
 
-function ProjectPreview({ type }) {
-  const common =
-    "relative flex h-48 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b18]";
+function DemoInterface({ type }) {
+  const [query, setQuery] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
-  if (type === "paperpilot") {
+  const submit = (event) => {
+    event.preventDefault();
+    if (query.trim()) setSubmitted(true);
+  };
+
+  if (type === "news") {
     return (
-      <div className={common}>
-        <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-indigo-500/10" />
+      <div className="project-demo news-demo">
+        <div className="demo-topbar">
+          <span className="demo-brand">
+            <Newspaper size={15} /> NewsLens
+          </span>
+          <span className="demo-status">PERSONALIZED FEED</span>
+        </div>
 
-        <div className="relative w-[85%] rounded-xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur">
-          <div className="mb-3 flex items-center gap-2">
-            <FileText className="h-4 w-4 text-violet-400" />
-            <span className="text-xs text-gray-300">
-              Research Assistant
-            </span>
-            <span className="ml-auto rounded-full bg-violet-500/20 px-2 py-1 text-[9px] text-violet-300">
-              RAG
-            </span>
+        <div className="demo-welcome">
+          <span>YOUR DAILY SIGNAL</span>
+          <h3>Stories worth your attention.</h3>
+        </div>
+
+        <div className="news-demo-grid">
+          {[
+            ["AI & TECHNOLOGY", "The next wave of intelligent systems"],
+            ["SCIENCE", "New discoveries reshape our understanding"],
+            ["BUSINESS", "Technology trends transforming industries"],
+          ].map(([category, headline], index) => (
+            <div className="news-demo-card" key={headline}>
+              <span>0{index + 1} / {category}</span>
+              <h4>{headline}</h4>
+              <div className="demo-relevance">
+                <span>RELEVANCE</span>
+                <strong>{94 - index * 7}%</strong>
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="demo-note">
+          Preview interface · Personalized ranking concept
+        </p>
+      </div>
+    );
+  }
+
+  if (type === "search") {
+    return (
+      <div className="project-demo search-demo">
+        <div className="demo-topbar">
+          <span className="demo-brand">
+            <Search size={15} /> Semantic Search
+          </span>
+          <span className="demo-status">VECTOR RETRIEVAL</span>
+        </div>
+
+        <div className="demo-search-content">
+          <span className="demo-label">QUERY YOUR KNOWLEDGE BASE</span>
+          <form className="demo-input-row" onSubmit={submit}>
+            <input
+              value={query}
+              onChange={(event) => {
+                setQuery(event.target.value);
+                setSubmitted(false);
+              }}
+              placeholder="How do neural networks learn?"
+            />
+            <button type="submit">
+              <ArrowUpRight size={16} />
+            </button>
+          </form>
+
+          {submitted ? (
+            <div className="demo-result">
+              <span>SIMULATED RETRIEVAL RESULT</span>
+              <h4>Relevant semantic matches</h4>
+              <p>
+                Results would be ranked by embedding similarity and retrieved
+                from the indexed knowledge base.
+              </p>
+            </div>
+          ) : (
+            <div className="demo-result">
+              <span>EXAMPLE RESULT</span>
+              <h4>Understanding representation learning</h4>
+              <p>
+                Semantic similarity helps retrieve related concepts even when
+                they use different words.
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  if (type === "fraud") {
+    return (
+      <div className="project-demo fraud-demo">
+        <div className="demo-topbar">
+          <span className="demo-brand">
+            <ShieldCheck size={15} /> FraudShield
+          </span>
+          <span className="demo-status">RISK MONITOR</span>
+        </div>
+
+        <div className="fraud-stats">
+          <div>
+            <span>TRANSACTIONS</span>
+            <strong>1,284</strong>
+          </div>
+          <div>
+            <span>FLAGGED</span>
+            <strong className="lime">18</strong>
+          </div>
+          <div>
+            <span>MODEL STATUS</span>
+            <strong className="lime">ACTIVE</strong>
+          </div>
+        </div>
+
+        <div className="fraud-chart">
+          <span>RISK DISTRIBUTION</span>
+          <div className="fraud-bars">
+            {[34, 58, 42, 75, 48, 88, 55, 68, 38, 80, 46, 62].map(
+              (height, index) => (
+                <div key={index} style={{ height: `${height}%` }} />
+              )
+            )}
+          </div>
+        </div>
+
+        <p className="demo-note">
+          Preview interface · Illustrative dashboard data
+        </p>
+      </div>
+    );
+  }
+
+  if (type === "paper") {
+    return (
+      <div className="project-demo paper-demo">
+        <div className="demo-topbar">
+          <span className="demo-brand">
+            <FileText size={15} /> PaperPilot
+          </span>
+          <span className="demo-status">RAG ASSISTANT</span>
+        </div>
+
+        <div className="paper-layout">
+          <div className="paper-sidebar">
+            <span>LIBRARY</span>
+            <div className="paper-file active">◈ Research Paper.pdf</div>
+            <div className="paper-file">◈ ML Survey.pdf</div>
+            <div className="paper-file">◈ NLP Notes.pdf</div>
           </div>
 
-          <div className="mb-3 h-2 w-3/4 rounded-full bg-white/10" />
-          <div className="mb-2 h-2 w-full rounded-full bg-white/5" />
-          <div className="mb-4 h-2 w-2/3 rounded-full bg-white/5" />
-
-          <div className="flex items-start gap-2 rounded-lg bg-violet-500/10 p-3">
-            <Sparkles className="mt-0.5 h-3 w-3 text-violet-400" />
-            <div className="space-y-1">
-              <div className="h-1.5 w-24 rounded-full bg-violet-300/30" />
-              <div className="h-1.5 w-32 rounded-full bg-white/10" />
+          <div className="paper-chat">
+            <span className="demo-label">ASK YOUR DOCUMENT</span>
+            <div className="paper-message user">
+              Summarize the key findings.
+            </div>
+            <div className="paper-message assistant">
+              <Sparkles size={14} />
+              <p>
+                The paper's key findings would be summarized using retrieved
+                passages from the uploaded document.
+              </p>
+              <span>[1] Research Paper.pdf · Page 4</span>
             </div>
           </div>
         </div>
@@ -147,282 +284,894 @@ function ProjectPreview({ type }) {
     );
   }
 
-  if (type === "classifier") {
-    return (
-      <div className={common}>
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-blue-500/10" />
-
-        <div className="relative w-[85%] rounded-xl border border-white/10 bg-white/[0.04] p-4">
-          <div className="mb-4 flex items-center gap-2">
-            <MessageSquare className="h-4 w-4 text-cyan-400" />
-            <span className="text-xs text-gray-300">
-              Query Classification
-            </span>
-          </div>
-
-          <div className="rounded-lg border border-white/10 bg-black/20 p-3">
-            <p className="text-[10px] text-gray-400">
-              “I need help with my payment.”
-            </p>
-          </div>
-
-          <div className="mt-3 flex items-center justify-between">
-            <span className="text-[10px] text-gray-500">
-              Predicted category
-            </span>
-            <span className="rounded-full bg-cyan-500/15 px-3 py-1 text-[10px] text-cyan-300">
-              Billing
-            </span>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (type === "fraudshield") {
-    return (
-      <div className={common}>
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-violet-500/10" />
-
-        <div className="relative w-[85%] rounded-xl border border-white/10 bg-white/[0.04] p-4">
-          <div className="mb-4 flex items-center gap-2">
-            <ShieldCheck className="h-4 w-4 text-blue-400" />
-            <span className="text-xs text-gray-300">
-              Fraud Analytics
-            </span>
-            <span className="ml-auto text-[9px] text-gray-500">
-              Dashboard
-            </span>
-          </div>
-
-          <div className="mb-4 grid grid-cols-3 gap-2">
-            {["Transactions", "Flagged", "Risk"].map((label) => (
-              <div
-                key={label}
-                className="rounded-lg border border-white/5 bg-white/[0.03] p-2"
-              >
-                <p className="text-[8px] text-gray-500">{label}</p>
-                <p className="mt-1 text-sm font-semibold text-gray-200">
-                  —
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="flex h-12 items-end gap-1.5">
-            {[35, 55, 42, 78, 50, 90, 65, 45, 75, 60, 85, 40].map(
-              (height, i) => (
-                <div
-                  key={i}
-                  className="flex-1 rounded-t-sm bg-gradient-to-t from-blue-500/50 to-violet-400/80"
-                  style={{ height: `${height}%` }}
-                />
-              )
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (type === "interview") {
-    return (
-      <div className={common}>
-        <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-500/10 to-purple-500/10" />
-
-        <div className="relative w-[85%] rounded-xl border border-white/10 bg-white/[0.04] p-4">
-          <div className="mb-3 flex items-center gap-2">
-            <BrainCircuit className="h-4 w-4 text-fuchsia-400" />
-            <span className="text-xs text-gray-300">
-              Interview Practice
-            </span>
-          </div>
-
-          <div className="rounded-lg bg-fuchsia-500/10 p-3">
-            <p className="text-[10px] text-fuchsia-200">
-              Question 01
-            </p>
-            <p className="mt-1 text-xs text-gray-300">
-              Tell me about a challenging project you worked on.
-            </p>
-          </div>
-
-          <div className="mt-3 flex gap-2">
-            <div className="h-1.5 w-1/3 rounded-full bg-fuchsia-400/40" />
-            <div className="h-1.5 w-1/4 rounded-full bg-white/10" />
-            <div className="h-1.5 w-1/5 rounded-full bg-white/10" />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className={common}>
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-cyan-500/10" />
+    <div className="project-demo classifier-demo">
+      <div className="demo-topbar">
+        <span className="demo-brand">
+          <MessageSquare size={15} /> Query Classifier
+        </span>
+        <span className="demo-status">NLP PIPELINE</span>
+      </div>
 
-      <div className="relative w-[85%] rounded-xl border border-white/10 bg-white/[0.04] p-4">
-        <div className="mb-3 flex items-center gap-2">
-          <FileSearch className="h-4 w-4 text-indigo-400" />
-          <span className="text-xs text-gray-300">Resume Analysis</span>
-        </div>
+      <div className="classifier-content">
+        <span className="demo-label">CUSTOMER MESSAGE</span>
+        <form className="demo-input-row" onSubmit={submit}>
+          <input
+            value={query}
+            onChange={(event) => {
+              setQuery(event.target.value);
+              setSubmitted(false);
+            }}
+            placeholder="I can't access my account..."
+          />
+          <button type="submit">
+            <ArrowUpRight size={16} />
+          </button>
+        </form>
 
-        <div className="flex items-center gap-4">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full border-4 border-indigo-400/30">
-            <span className="text-sm font-bold text-indigo-300">
-              ATS
-            </span>
+        <div className="classifier-result">
+          <span>CLASSIFICATION</span>
+          <div className="classifier-category">
+            {submitted ? "Account Support" : "Billing Support"}
+            <span>{submitted ? "SIMULATED" : "EXAMPLE"}</span>
           </div>
-
-          <div className="flex-1 space-y-2">
-            <div className="h-2 w-full rounded-full bg-white/10" />
-            <div className="h-2 w-4/5 rounded-full bg-white/10" />
-            <div className="h-2 w-3/5 rounded-full bg-indigo-400/30" />
-            <div className="h-2 w-2/3 rounded-full bg-cyan-400/30" />
+          <div className="classifier-confidence">
+            <div />
           </div>
-        </div>
-
-        <div className="mt-3 flex flex-wrap gap-1.5">
-          {["Skills", "Keywords", "Experience"].map((item) => (
-            <span
-              key={item}
-              className="rounded-full bg-indigo-500/10 px-2 py-1 text-[9px] text-indigo-300"
-            >
-              {item}
-            </span>
-          ))}
+          <p>
+            {submitted
+              ? "This is a simulated prediction. Connect the trained model to enable real classification."
+              : "Example category prediction"}
+          </p>
         </div>
       </div>
     </div>
   );
 }
 
-function ProjectCard({ project }) {
-  const Icon = project.icon;
-
-  return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-[#0b0b16]/80 p-5 transition-all duration-500 hover:-translate-y-2 hover:border-purple-400/30 hover:bg-[#101020] sm:p-6">
-      <div
-        className="pointer-events-none absolute -right-20 -top-20 h-48 w-48 rounded-full blur-[90px] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-        style={{ backgroundColor: project.glow }}
-      />
-
-      {/* Large title beside project number */}
-      <div className="relative mb-5 flex items-center gap-4">
-        <span
-          className={`shrink-0 bg-gradient-to-r ${project.accent} bg-clip-text font-mono text-lg font-semibold text-transparent`}
-        >
-          {project.number}
-        </span>
-
-        <div className="h-10 w-px shrink-0 bg-white/10" />
-
-        <div className="min-w-0 flex-1">
-          <h3 className="text-2xl font-bold tracking-tight text-white transition-colors group-hover:text-purple-200 sm:text-3xl">
-            {project.title}
-          </h3>
-
-          <p
-            className={`mt-1 bg-gradient-to-r ${project.accent} bg-clip-text text-xs font-semibold uppercase tracking-wider text-transparent`}
-          >
-            {project.subtitle}
-          </p>
-        </div>
-
-        <div
-          className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br ${project.accent}`}
-        >
-          <Icon className="h-5 w-5 text-white" />
-        </div>
-      </div>
-
-      <div className="relative mb-5">
-        <ProjectPreview type={project.preview} />
-      </div>
-
-      <div className="relative flex flex-1 flex-col">
-        <p className="mb-5 flex-1 text-sm leading-6 text-gray-400">
-          {project.description}
-        </p>
-
-        <div className="mb-6 flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <ProjectTag key={tag}>{tag}</ProjectTag>
-          ))}
-        </div>
-
-        <div className="mt-auto flex items-center justify-between border-t border-white/[0.08] pt-4">
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-medium text-gray-300 transition-colors hover:text-white"
-            aria-label={`View ${project.title} on GitHub`}
-          >
-            <GithubMark className="h-4 w-4" />
-            GitHub
-            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </a>
-
-          <span className="text-xs text-gray-600">
-            View repository
-          </span>
-        </div>
-      </div>
-    </article>
-  );
-}
-
 export default function Projects() {
+  const [activeProject, setActiveProject] = useState(null);
+
+  useEffect(() => {
+    if (!activeProject) return;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") setActiveProject(null);
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [activeProject]);
+
   return (
-    <section
-      id="projects"
-      className="relative overflow-hidden bg-[#070711] px-6 py-24 sm:px-10 lg:px-20"
-    >
-      <div className="pointer-events-none absolute left-0 top-1/4 h-96 w-96 rounded-full bg-purple-600/10 blur-[150px]" />
-      <div className="pointer-events-none absolute bottom-0 right-0 h-96 w-96 rounded-full bg-blue-600/10 blur-[150px]" />
+    <section id="projects" className="projects-section">
+      <div className="projects-ambient ambient-one" />
+      <div className="projects-ambient ambient-two" />
 
-      <div className="relative mx-auto max-w-7xl">
-        <div className="mb-16 text-center">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-purple-400/20 bg-purple-500/5 px-4 py-2">
-            <Sparkles className="h-4 w-4 text-purple-400" />
-            <span className="text-xs font-medium uppercase tracking-[0.2em] text-purple-300">
-              Things I’ve Built
-            </span>
-          </div>
+      <div className="projects-container">
+        <motion.div
+          className="projects-heading"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <span className="section-eyebrow">
+            <span className="eyebrow-dot" />
+            SELECTED WORK
+          </span>
 
-          <h2 className="mb-5 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Featured{" "}
-            <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              Projects
-            </span>
+          <h2>
+            Ideas into <span>intelligence.</span>
           </h2>
 
-          <p className="mx-auto max-w-2xl text-base leading-7 text-gray-400 sm:text-lg">
-            A collection of projects exploring machine learning, NLP, and
-            AI-powered applications — built to solve real-world problems.
+          <p>
+            A collection of experiments and projects across machine learning,
+            information retrieval, and generative AI.
           </p>
+        </motion.div>
+
+        <div className="projects-grid">
+          {projects.map((project, index) => {
+            const Icon = project.icon;
+
+            return (
+              <motion.article
+                key={project.number}
+                className={`project-card ${project.featured ? "featured" : ""}`}
+                initial={{ opacity: 0, y: 35 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.55, delay: index * 0.08 }}
+                whileHover={{ y: -7 }}
+                onClick={() => setActiveProject(project)}
+              >
+                <div className="project-card-top">
+                  <span className="project-number">{project.number}</span>
+                  <span className="project-open">
+                    <ArrowUpRight size={17} />
+                  </span>
+                </div>
+
+                <div className="project-icon">
+                  <Icon size={23} strokeWidth={1.6} />
+                </div>
+
+                <span className="project-category">{project.category}</span>
+                <h3>{project.title}</h3>
+                <p className="project-description">{project.description}</p>
+
+                <div className="project-tags">
+                  {project.tags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+
+                <div className="project-card-bottom">
+                  <span>EXPLORE PROJECT</span>
+                  <ChevronRight size={16} />
+                </div>
+              </motion.article>
+            );
+          })}
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {projects.map((project) => (
-            <ProjectCard key={project.number} project={project} />
-          ))}
-        </div>
-
-        <div className="mt-14 text-center">
-          <a
-            href="https://github.com/shrutisharma26"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-sm font-medium text-gray-300 transition-all hover:border-purple-400/30 hover:bg-purple-500/10 hover:text-white"
-          >
-            <GithubMark className="h-4 w-4" />
-            Explore More on GitHub
-            <ExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </a>
-        </div>
+        <motion.div
+          className="projects-footer-note"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <Activity size={15} />
+          <span>BUILDING · EXPERIMENTING · ITERATING</span>
+        </motion.div>
       </div>
+
+      <AnimatePresence>
+        {activeProject && (
+          <motion.div
+            className="project-modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveProject(null)}
+          >
+            <motion.div
+              className="project-modal"
+              initial={{ opacity: 0, scale: 0.82, rotateX: 12, y: 40 }}
+              animate={{ opacity: 1, scale: 1, rotateX: 0, y: 0 }}
+              exit={{ opacity: 0, scale: 0.85, rotateX: -8, y: 25 }}
+              transition={{ type: "spring", stiffness: 180, damping: 20 }}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                className="modal-close"
+                onClick={() => setActiveProject(null)}
+                aria-label="Close project preview"
+              >
+                <X size={19} />
+              </button>
+
+              <div className="modal-heading">
+                <span>{demoContent[activeProject.demo].eyebrow}</span>
+                <h2>{demoContent[activeProject.demo].title}</h2>
+                <p>{demoContent[activeProject.demo].description}</p>
+              </div>
+
+              <DemoInterface type={activeProject.demo} />
+
+              <div className="modal-bottom">
+                <div className="modal-tech">
+                  {activeProject.tags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                  ))}
+                </div>
+
+                <a
+                  href={activeProject.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="modal-github"
+                >
+                  <span style={{ fontWeight: 700 }}>GH</span>
+                  GitHub
+                  <ExternalLink size={13} />
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <style>{`
+        .projects-section {
+          position: relative;
+          overflow: hidden;
+          padding: 130px 24px;
+          background: #050708;
+          color: #F2F5F3;
+          isolation: isolate;
+        }
+
+        .projects-ambient {
+          position: absolute;
+          width: 520px;
+          height: 520px;
+          border-radius: 50%;
+          filter: blur(130px);
+          opacity: 0.12;
+          pointer-events: none;
+          z-index: -1;
+        }
+
+        .ambient-one {
+          top: 5%;
+          left: -250px;
+          background: #C8FF00;
+        }
+
+        .ambient-two {
+          bottom: 0;
+          right: -250px;
+          background: #4D7600;
+        }
+
+        .projects-container {
+          width: min(1150px, 100%);
+          margin: 0 auto;
+        }
+
+        .projects-heading {
+          max-width: 720px;
+          margin-bottom: 58px;
+        }
+
+        .section-eyebrow {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          color: #C8FF00;
+          font: 500 11px "DM Mono", monospace;
+          letter-spacing: 0.18em;
+          margin-bottom: 22px;
+        }
+
+        .eyebrow-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: #C8FF00;
+          box-shadow: 0 0 12px rgba(200,255,0,0.6);
+        }
+
+        .projects-heading h2 {
+          font-size: clamp(2.5rem, 6vw, 5rem);
+          line-height: 1.05;
+          letter-spacing: -0.055em;
+          margin: 0 0 20px;
+          font-weight: 700;
+        }
+
+        .projects-heading h2 span {
+          color: #C8FF00;
+        }
+
+        .projects-heading p {
+          color: #A1AAA5;
+          font-size: 16px;
+          line-height: 1.8;
+          max-width: 580px;
+        }
+
+        .projects-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 18px;
+          perspective: 1200px;
+        }
+
+        .project-card {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          min-height: 340px;
+          padding: 28px;
+          border-radius: 18px;
+          background: linear-gradient(145deg, rgba(19,26,27,0.96), rgba(8,12,13,0.96));
+          border: 1px solid rgba(255,255,255,0.09);
+          cursor: pointer;
+          overflow: hidden;
+          transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          pointer-events: none;
+          background: radial-gradient(circle at 15% 0%, rgba(200,255,0,0.09), transparent 45%);
+          transition: opacity 0.3s;
+        }
+
+        .project-card:hover {
+          border-color: rgba(200,255,0,0.35);
+          box-shadow: 0 18px 60px rgba(0,0,0,0.3), 0 0 25px rgba(200,255,0,0.04);
+        }
+
+        .project-card:hover::before {
+          opacity: 1;
+        }
+
+        .project-card.featured {
+          border-color: rgba(200,255,0,0.2);
+        }
+
+        .project-card-top,
+        .project-card-bottom {
+          position: relative;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .project-number {
+          color: #75817B;
+          font: 12px "DM Mono", monospace;
+        }
+
+        .project-open {
+          display: grid;
+          place-items: center;
+          width: 34px;
+          height: 34px;
+          color: #C8FF00;
+          border: 1px solid rgba(200,255,0,0.2);
+          border-radius: 50%;
+          transition: background 0.3s, transform 0.3s;
+        }
+
+        .project-card:hover .project-open {
+          background: rgba(200,255,0,0.1);
+          transform: rotate(45deg);
+        }
+
+        .project-icon {
+          display: grid;
+          place-items: center;
+          width: 48px;
+          height: 48px;
+          margin: 22px 0 18px;
+          border-radius: 12px;
+          color: #C8FF00;
+          background: rgba(200,255,0,0.06);
+          border: 1px solid rgba(200,255,0,0.15);
+        }
+
+        .project-category {
+          color: #C8FF00;
+          font: 10px "DM Mono", monospace;
+          letter-spacing: 0.11em;
+          margin-bottom: 10px;
+        }
+
+        .project-card h3 {
+          position: relative;
+          font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+          letter-spacing: -0.035em;
+          margin: 0 0 12px;
+          color: #F2F5F3;
+        }
+
+        .project-description {
+          color: #A1AAA5;
+          font-size: 13px;
+          line-height: 1.75;
+          margin: 0 0 22px;
+          max-width: 520px;
+        }
+
+        .project-tags,
+        .modal-tech {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 7px;
+          margin-top: auto;
+        }
+
+        .project-tags span,
+        .modal-tech span {
+          padding: 6px 9px;
+          border-radius: 5px;
+          color: #A1AAA5;
+          background: rgba(255,255,255,0.035);
+          border: 1px solid rgba(255,255,255,0.07);
+          font: 10px "DM Mono", monospace;
+        }
+
+        .project-card-bottom {
+          margin-top: 24px;
+          padding-top: 15px;
+          border-top: 1px solid rgba(255,255,255,0.07);
+          color: #C8FF00;
+          font: 10px "DM Mono", monospace;
+          letter-spacing: 0.1em;
+        }
+
+        .projects-footer-note {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          margin-top: 45px;
+          color: #75817B;
+          font: 10px "DM Mono", monospace;
+          letter-spacing: 0.14em;
+        }
+
+        .projects-footer-note svg {
+          color: #C8FF00;
+        }
+
+        /* Modal */
+
+        .project-modal-backdrop {
+          position: fixed;
+          inset: 0;
+          z-index: 1000;
+          display: grid;
+          place-items: center;
+          padding: 20px;
+          background: rgba(0,0,0,0.82);
+          backdrop-filter: blur(14px);
+          perspective: 1400px;
+        }
+
+        .project-modal {
+          position: relative;
+          width: min(850px, 100%);
+          max-height: 90vh;
+          overflow-y: auto;
+          padding: 35px;
+          border-radius: 22px;
+          background: linear-gradient(145deg, #111819, #080B0C);
+          border: 1px solid rgba(200,255,0,0.22);
+          box-shadow: 0 0 80px rgba(200,255,0,0.07), 0 30px 100px rgba(0,0,0,0.6);
+          transform-style: preserve-3d;
+        }
+
+        .modal-close {
+          position: absolute;
+          top: 18px;
+          right: 18px;
+          display: grid;
+          place-items: center;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          color: #F2F5F3;
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.12);
+          cursor: pointer;
+          z-index: 2;
+        }
+
+        .modal-close:hover {
+          color: #C8FF00;
+          border-color: rgba(200,255,0,0.4);
+        }
+
+        .modal-heading {
+          padding-right: 35px;
+          margin-bottom: 25px;
+        }
+
+        .modal-heading > span {
+          color: #C8FF00;
+          font: 10px "DM Mono", monospace;
+          letter-spacing: 0.14em;
+        }
+
+        .modal-heading h2 {
+          margin: 12px 0;
+          font-size: clamp(2rem, 5vw, 3rem);
+          letter-spacing: -0.05em;
+        }
+
+        .modal-heading p {
+          color: #A1AAA5;
+          line-height: 1.7;
+          font-size: 14px;
+        }
+
+        .project-demo {
+          padding: 22px;
+          border-radius: 13px;
+          background: #080C0D;
+          border: 1px solid rgba(255,255,255,0.09);
+          min-height: 250px;
+        }
+
+        .demo-topbar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          padding-bottom: 15px;
+          border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .demo-brand {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          color: #F2F5F3;
+          font-size: 12px;
+          font-weight: 600;
+        }
+
+        .demo-brand svg {
+          color: #C8FF00;
+        }
+
+        .demo-status,
+        .demo-label {
+          color: #75817B;
+          font: 9px "DM Mono", monospace;
+          letter-spacing: 0.1em;
+        }
+
+        .demo-welcome {
+          padding: 20px 0 14px;
+        }
+
+        .demo-welcome > span {
+          color: #C8FF00;
+          font: 9px "DM Mono", monospace;
+        }
+
+        .demo-welcome h3 {
+          margin: 8px 0;
+          font-size: 22px;
+          color: #F2F5F3;
+        }
+
+        .news-demo-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 10px;
+        }
+
+        .news-demo-card {
+          display: flex;
+          flex-direction: column;
+          min-height: 135px;
+          padding: 13px;
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 8px;
+          background: rgba(255,255,255,0.025);
+        }
+
+        .news-demo-card > span {
+          color: #C8FF00;
+          font: 8px "DM Mono", monospace;
+        }
+
+        .news-demo-card h4 {
+          font-size: 12px;
+          line-height: 1.5;
+          margin: 10px 0 auto;
+        }
+
+        .demo-relevance {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 14px;
+          color: #75817B;
+          font: 8px "DM Mono", monospace;
+        }
+
+        .demo-relevance strong {
+          color: #C8FF00;
+        }
+
+        .demo-note {
+          margin: 14px 0 0;
+          color: #75817B;
+          font-size: 9px;
+        }
+
+        .demo-search-content,
+        .classifier-content {
+          padding-top: 22px;
+        }
+
+        .demo-input-row {
+          display: flex;
+          gap: 8px;
+          margin: 10px 0 18px;
+        }
+
+        .demo-input-row input {
+          flex: 1;
+          min-width: 0;
+          padding: 12px;
+          color: #F2F5F3;
+          background: #111718;
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 6px;
+          outline: none;
+          font: 11px "DM Mono", monospace;
+        }
+
+        .demo-input-row input:focus {
+          border-color: rgba(200,255,0,0.45);
+        }
+
+        .demo-input-row button {
+          display: grid;
+          place-items: center;
+          width: 42px;
+          border: 0;
+          border-radius: 6px;
+          color: #050708;
+          background: #C8FF00;
+          cursor: pointer;
+        }
+
+        .demo-result,
+        .classifier-result {
+          padding: 15px;
+          border: 1px solid rgba(200,255,0,0.14);
+          border-radius: 8px;
+          background: rgba(200,255,0,0.025);
+        }
+
+        .demo-result > span,
+        .classifier-result > span {
+          color: #C8FF00;
+          font: 9px "DM Mono", monospace;
+        }
+
+        .demo-result h4 {
+          margin: 10px 0 6px;
+          font-size: 13px;
+        }
+
+        .demo-result p,
+        .classifier-result p {
+          color: #A1AAA5;
+          font-size: 11px;
+          line-height: 1.7;
+          margin: 0;
+        }
+
+        .fraud-stats {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+          margin: 20px 0;
+        }
+
+        .fraud-stats > div {
+          padding: 13px;
+          background: rgba(255,255,255,0.025);
+          border: 1px solid rgba(255,255,255,0.07);
+          border-radius: 7px;
+        }
+
+        .fraud-stats span {
+          display: block;
+          color: #75817B;
+          font: 8px "DM Mono", monospace;
+        }
+
+        .fraud-stats strong {
+          display: block;
+          margin-top: 8px;
+          font-size: 20px;
+        }
+
+        .fraud-stats .lime {
+          color: #C8FF00;
+        }
+
+        .fraud-chart {
+          padding: 15px;
+          border-radius: 8px;
+          background: rgba(255,255,255,0.025);
+        }
+
+        .fraud-chart > span {
+          color: #75817B;
+          font: 9px "DM Mono", monospace;
+        }
+
+        .fraud-bars {
+          display: flex;
+          align-items: flex-end;
+          gap: 8px;
+          height: 80px;
+          margin-top: 15px;
+        }
+
+        .fraud-bars div {
+          flex: 1;
+          min-width: 0;
+          border-radius: 3px 3px 0 0;
+          background: linear-gradient(to top, rgba(200,255,0,0.2), #C8FF00);
+          opacity: 0.8;
+        }
+
+        .paper-layout {
+          display: grid;
+          grid-template-columns: 150px 1fr;
+          gap: 15px;
+          padding-top: 20px;
+        }
+
+        .paper-sidebar > span {
+          color: #75817B;
+          font: 9px "DM Mono", monospace;
+        }
+
+        .paper-file {
+          margin-top: 10px;
+          padding: 9px 7px;
+          border-radius: 5px;
+          color: #A1AAA5;
+          font-size: 9px;
+          overflow-wrap: anywhere;
+        }
+
+        .paper-file.active {
+          color: #C8FF00;
+          background: rgba(200,255,0,0.07);
+        }
+
+        .paper-chat {
+          min-width: 0;
+        }
+
+        .paper-message {
+          padding: 12px;
+          margin-top: 10px;
+          border-radius: 7px;
+          font-size: 10px;
+          line-height: 1.6;
+        }
+
+        .paper-message.user {
+          color: #F2F5F3;
+          background: rgba(255,255,255,0.06);
+          margin-left: 25px;
+        }
+
+        .paper-message.assistant {
+          color: #A1AAA5;
+          background: rgba(200,255,0,0.04);
+          border: 1px solid rgba(200,255,0,0.12);
+        }
+
+        .paper-message.assistant svg {
+          color: #C8FF00;
+        }
+
+        .paper-message.assistant p {
+          margin: 7px 0;
+        }
+
+        .paper-message.assistant span {
+          color: #C8FF00;
+          font: 8px "DM Mono", monospace;
+        }
+
+        .classifier-category {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin: 12px 0;
+          font-size: 18px;
+          color: #F2F5F3;
+        }
+
+        .classifier-category span {
+          color: #C8FF00;
+          font: 8px "DM Mono", monospace;
+        }
+
+        .classifier-confidence {
+          height: 5px;
+          border-radius: 10px;
+          background: rgba(255,255,255,0.08);
+          margin-bottom: 12px;
+          overflow: hidden;
+        }
+
+        .classifier-confidence div {
+          width: 87%;
+          height: 100%;
+          background: #C8FF00;
+          box-shadow: 0 0 10px rgba(200,255,0,0.3);
+        }
+
+        .modal-bottom {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 15px;
+          flex-wrap: wrap;
+          margin-top: 22px;
+        }
+
+        .modal-github {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 10px 14px;
+          color: #050708;
+          background: #C8FF00;
+          border-radius: 6px;
+          font-size: 11px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .modal-github:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 0 20px rgba(200,255,0,0.2);
+        }
+
+        @media (max-width: 700px) {
+          .projects-section {
+            padding: 90px 18px;
+          }
+
+          .projects-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .project-card {
+            min-height: 320px;
+            padding: 23px;
+          }
+
+          .project-modal {
+            padding: 24px 18px;
+          }
+
+          .news-demo-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .news-demo-card {
+            min-height: 100px;
+          }
+
+          .paper-layout {
+            grid-template-columns: 1fr;
+          }
+
+          .paper-sidebar {
+            display: none;
+          }
+
+          .fraud-stats {
+            grid-template-columns: 1fr;
+          }
+
+          .modal-bottom {
+            align-items: flex-start;
+            flex-direction: column;
+          }
+        }
+      `}</style>
     </section>
   );
 }

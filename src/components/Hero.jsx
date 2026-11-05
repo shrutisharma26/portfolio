@@ -1,313 +1,186 @@
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
-const Hero = () => {
-  const textReveal = {
-    hidden: { opacity: 0, y: 25 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
-    },
-  };
+export default function Hero() {
+  const heroRef = useRef(null);
 
-  const floatAnimation = {
-    animate: {
-      y: [0, -8, 0],
-      transition: {
-        duration: 4,
-        repeat: Infinity,
-        ease: "easeInOut",
-      },
-    },
-  };
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
+  const imageY = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const imageRotate = useTransform(scrollYProgress, [0, 1], [0, 8]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center overflow-hidden px-5 pb-16 pt-28 sm:px-8 lg:px-12"
+      ref={heroRef}
+      className="relative flex min-h-screen items-center overflow-hidden px-5 pb-20 pt-32 sm:px-8 md:px-16"
     >
-      {/* BACKGROUND GLOW */}
-      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-        <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.25, 0.15] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute left-[5%] top-[5%] h-[350px] w-[350px] rounded-full bg-purple-600/20 blur-[140px]"
-        />
+      {/* Dark green ambient projections */}
+      <div className="pointer-events-none absolute left-[8%] top-[15%] h-72 w-72 rounded-full bg-[#C8FF00]/[0.06] blur-[130px]" />
+      <div className="pointer-events-none absolute right-[5%] top-[25%] h-96 w-96 rounded-full bg-[#1B5E40]/[0.16] blur-[150px]" />
+      <div className="pointer-events-none absolute bottom-0 left-[35%] h-72 w-72 rounded-full bg-[#C8FF00]/[0.035] blur-[130px]" />
 
+      <motion.div
+        style={{ opacity }}
+        className="relative mx-auto grid w-full max-w-7xl items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]"
+      >
+        {/* Text content */}
         <motion.div
-          animate={{ scale: [1, 1.1, 1], opacity: [0.15, 0.25, 0.15] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute right-[5%] top-[10%] h-[450px] w-[450px] rounded-full bg-blue-600/20 blur-[160px]"
-        />
-
-        <div className="absolute bottom-[-10%] left-[30%] h-[350px] w-[350px] rounded-full bg-indigo-500/10 blur-[140px]" />
-      </div>
-
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-20">
-        {/* LEFT CONTENT */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          transition={{ staggerChildren: 0.12 }}
+          style={{ y: contentY }}
+          initial={{ opacity: 0, x: -35 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="relative z-10 min-w-0"
         >
-          {/* STATUS */}
-          <motion.div
-            variants={textReveal}
-            className="mb-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 backdrop-blur-xl"
-          >
-            <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.8)]" />
+          <p className="mb-6 font-mono text-xs tracking-[0.25em] text-[#C8FF00]/80 sm:text-sm">
+            DATA SCIENCE <span className="text-white/30">·</span> AI{" "}
+            <span className="text-white/30">·</span> MACHINE LEARNING
+          </p>
 
-            <span className="text-xs text-white/60">
-              Data Science Engineering · IIT Mandi
-            </span>
-          </motion.div>
-
-          {/* INTRO */}
-          <motion.p
-            variants={textReveal}
-            className="mb-4 text-sm tracking-wide text-white/40"
-          >
-            Hey there! I'm
-          </motion.p>
-
-          <motion.h1
-            variants={textReveal}
-            className="text-5xl font-semibold leading-[0.95] tracking-[-0.055em] sm:text-7xl lg:text-[6.5rem]"
-          >
-            Shruti
+          <h1 className="break-words text-6xl font-bold leading-[1.05] tracking-tight text-white sm:text-7xl md:text-8xl">
+            Hi, I&apos;m
             <br />
-            <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent">
-              Sharma.
+            <span className="text-[#C8FF00] [text-shadow:0_0_35px_rgba(200,255,0,0.18)]">
+              Shruti Sharma.
             </span>
-          </motion.h1>
+          </h1>
 
-          {/* ROLE */}
-          <motion.div
-            variants={textReveal}
-            className="mt-7 flex flex-wrap items-center gap-2 text-lg font-medium sm:text-2xl"
-          >
-            <span className="text-white/50">I build</span>
+          <p className="mt-8 max-w-xl text-base leading-8 text-white/65 sm:text-lg">
+            A Data Science Engineering student at IIT Mandi, fascinated by
+            intelligent systems, machine learning, and building ideas that
+            make technology feel a little more human.
+          </p>
 
-            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-              intelligent systems.
-            </span>
-          </motion.div>
-
-          {/* DESCRIPTION */}
-          <motion.p
-            variants={textReveal}
-            className="mt-6 max-w-xl text-base leading-relaxed text-white/50 sm:text-lg"
-          >
-            I'm a Data Science Engineering student at IIT Mandi passionate
-            about machine learning, NLP, and AI-powered applications.
-            I enjoy turning complex ideas into practical software.
-          </motion.p>
-
-          {/* BUTTONS */}
-          <motion.div
-            variants={textReveal}
-            className="mt-9 flex flex-wrap gap-4"
-          >
+          <div className="mt-9 flex flex-wrap gap-3">
             <motion.a
-              whileHover={{ y: -4, scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
               href="#projects"
-              className="group rounded-xl bg-gradient-to-r from-purple-600 to-blue-600 px-7 py-3.5 text-sm font-medium text-white shadow-[0_0_30px_rgba(99,102,241,0.2)] transition duration-300 hover:shadow-[0_0_40px_rgba(99,102,241,0.35)]"
+              whileHover={{ y: -4, scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="rounded-full border border-[#C8FF00]/40 bg-[#C8FF00] px-7 py-3.5 text-sm font-semibold text-[#080B07] shadow-[0_0_30px_rgba(200,255,0,0.12)] transition-shadow hover:shadow-[0_0_40px_rgba(200,255,0,0.25)]"
             >
-              Explore My Projects
-              <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">
-                →
-              </span>
+              Explore my work ↗
             </motion.a>
 
             <motion.a
+              href="#contact"
               whileHover={{ y: -4 }}
               whileTap={{ scale: 0.97 }}
-              href="#contact"
-              className="rounded-xl border border-white/15 bg-white/[0.03] px-7 py-3.5 text-sm font-medium text-white/70 backdrop-blur-xl transition hover:border-purple-400/40 hover:bg-white/[0.06] hover:text-white"
+              className="rounded-full border border-white/15 bg-white/[0.04] px-7 py-3.5 text-sm text-white/75 backdrop-blur-xl transition-colors hover:border-[#C8FF00]/30 hover:text-[#C8FF00]"
             >
-              Let's Connect ↗
+              Get in touch
             </motion.a>
-          </motion.div>
+          </div>
 
-          {/* TECH STACK */}
-          <motion.div variants={textReveal} className="mt-12">
-            <p className="mb-4 text-[10px] uppercase tracking-[0.25em] text-white/30">
-              Technologies I work with
-            </p>
+          <div className="mt-12 flex flex-wrap items-center gap-4 text-xs text-white/50">
+            <span className="flex items-center gap-2">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-[#C8FF00] shadow-[0_0_12px_rgba(200,255,0,0.6)]" />
+              Currently learning & building
+            </span>
 
-            <div className="flex flex-wrap gap-2">
-              {[
-                "Python",
-                "Machine Learning",
-                "NLP",
-                "LLMs",
-                "FastAPI",
-                "C++",
-              ].map((skill, index) => (
-                <motion.span
-                  key={skill}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.8 + index * 0.08 }}
-                  whileHover={{ y: -3 }}
-                  className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-xs text-white/50 transition hover:border-purple-400/30 hover:text-purple-300"
-                >
-                  {skill}
-                </motion.span>
-              ))}
-            </div>
-          </motion.div>
+            <span className="text-[#C8FF00]/50">✦</span>
+
+            <span>IIT Mandi · India</span>
+          </div>
         </motion.div>
 
-        {/* RIGHT VISUAL */}
+        {/* Floating holographic profile */}
         <motion.div
-          initial={{ opacity: 0, x: 40, scale: 0.95 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{
-            duration: 0.9,
-            delay: 0.3,
-            ease: [0.22, 1, 0.36, 1],
+          style={{
+            y: imageY,
+            rotate: imageRotate,
+            transformPerspective: 1200,
           }}
-          className="relative mx-auto w-full max-w-[520px]"
+          initial={{ opacity: 0, scale: 0.9, rotateY: 12 }}
+          animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="relative mx-auto w-full max-w-[420px]"
         >
-          {/* MAIN FRAME */}
+          {/* Neon glow behind profile */}
+          <div className="absolute inset-8 rounded-[3rem] bg-gradient-to-br from-[#C8FF00]/20 via-[#16452E]/30 to-transparent opacity-80 blur-3xl" />
+
+          {/* Outer holographic frame */}
           <motion.div
-            variants={floatAnimation}
-            animate="animate"
-            className="relative min-h-[400px] overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#111426] via-[#0b0b15] to-[#10152b] p-5 shadow-2xl sm:min-h-[480px] sm:p-8"
+            animate={{ y: [0, -12, 0] }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="relative rounded-[2.5rem] border border-[#C8FF00]/20 bg-gradient-to-br from-white/[0.08] via-white/[0.025] to-[#C8FF00]/[0.04] p-3 shadow-[0_25px_80px_rgba(0,0,0,0.5),0_0_35px_rgba(200,255,0,0.04)] backdrop-blur-2xl sm:p-4"
           >
-            {/* GRID BACKGROUND */}
-            <div
-              className="pointer-events-none absolute inset-0 opacity-[0.08]"
-              style={{
-                backgroundImage:
-                  "linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px)",
-                backgroundSize: "35px 35px",
-              }}
-            />
+            {/* Fine frame highlight */}
+            <div className="pointer-events-none absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-white/[0.08] via-transparent to-[#C8FF00]/[0.08]" />
 
-            {/* GLOW */}
-            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-purple-600/20 blur-[100px]" />
-            <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-blue-600/20 blur-[100px]" />
-
-            {/* TOP BAR */}
-            <div className="relative flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-purple-400" />
-                <span className="h-2 w-2 rounded-full bg-blue-400" />
-                <span className="h-2 w-2 rounded-full bg-white/20" />
-              </div>
-
-              <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
-                Developer Profile
-              </span>
-            </div>
-
-            {/* CENTER PROFILE */}
-            <div className="relative flex flex-col items-center py-10 sm:py-14">
-              {/* ORBIT */}
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
-                className="absolute top-12 h-52 w-52 rounded-full border border-purple-400/20 sm:h-60 sm:w-60"
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#101719]">
+              <img
+                src="/images/shruti.jpg"
+                alt="Shruti Sharma"
+                className="aspect-[4/5] w-full object-cover object-center"
               />
 
-              <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-                className="absolute top-16 h-44 w-44 rounded-full border border-blue-400/20 sm:h-52 sm:w-52"
-              />
+              {/* Holographic reflection */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[#C8FF00]/[0.08] via-transparent to-white/[0.12] mix-blend-screen" />
 
-              {/* PROFILE PHOTO */}
-              <motion.div
-                whileHover={{ scale: 1.04 }}
-                className="relative z-10 h-36 w-36 overflow-hidden rounded-full border-2 border-purple-400/50 bg-gradient-to-br from-purple-600/30 to-blue-600/30 p-1 shadow-[0_0_70px_rgba(139,92,246,0.35)] sm:h-44 sm:w-44"
-              >
-                <img
-                  src="/images/shruti.jpg"
-                  alt="Shruti Sharma"
-                  className="h-full w-full rounded-full object-cover object-center"
-                />
-              </motion.div>
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#050708]/70 to-transparent" />
 
-              {/* FLOATING BADGES */}
-              {[
-                { label: "Python", position: "left-2 top-20", color: "text-blue-300", delay: 0 },
-                { label: "AI / ML", position: "right-2 top-24", color: "text-purple-300", delay: 0.5 },
-                { label: "NLP", position: "bottom-8 left-5", color: "text-cyan-300", delay: 1 },
-                { label: "FastAPI", position: "bottom-5 right-5", color: "text-blue-300", delay: 1.5 },
-              ].map((badge) => (
-                <motion.div
-                  key={badge.label}
-                  animate={{ y: [0, -7, 0] }}
-                  transition={{
-                    duration: 3,
-                    delay: badge.delay,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className={`absolute ${badge.position} rounded-xl border border-white/10 bg-black/70 px-3 py-2 shadow-xl backdrop-blur-xl`}
-                >
-                  <span className={`text-xs font-medium ${badge.color}`}>
-                    {badge.label}
-                  </span>
-                </motion.div>
-              ))}
+              {/* Technical corner markers */}
+              <div className="pointer-events-none absolute left-4 top-4 h-5 w-5 border-l border-t border-[#C8FF00]/70" />
+              <div className="pointer-events-none absolute right-4 top-4 h-5 w-5 border-r border-t border-[#C8FF00]/70" />
+              <div className="pointer-events-none absolute bottom-4 left-4 h-5 w-5 border-b border-l border-[#C8FF00]/70" />
+              <div className="pointer-events-none absolute bottom-4 right-4 h-5 w-5 border-b border-r border-[#C8FF00]/70" />
             </div>
 
-            {/* CODE CARD */}
+            {/* Floating focus label */}
             <motion.div
-              whileHover={{ borderColor: "rgba(139,92,246,0.35)" }}
-              className="relative rounded-2xl border border-white/10 bg-black/50 p-4 backdrop-blur-xl sm:p-5"
+              animate={{ y: [0, -7, 0] }}
+              transition={{
+                duration: 4.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute -left-5 top-[18%] rounded-2xl border border-[#C8FF00]/20 bg-[#090D0C]/85 px-4 py-3 shadow-[0_10px_35px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:-left-8"
             >
-              <div className="mb-4 flex items-center justify-between">
-                <span className="text-xs text-white/40">
-                  developer.py
-                </span>
-
-                <span className="text-[10px] text-emerald-400">
-                  ● Python
-                </span>
-              </div>
-
-              <div className="space-y-2 font-mono text-xs sm:text-sm">
-                <p>
-                  <span className="text-purple-400">class</span>{" "}
-                  <span className="text-blue-300">Developer</span>
-                  <span className="text-white/50">:</span>
-                </p>
-
-                <p className="pl-4 text-white/50">
-                  name = <span className="text-emerald-300">"Shruti Sharma"</span>
-                </p>
-
-                <p className="pl-4 text-white/50">
-                  focus = <span className="text-emerald-300">"AI + ML"</span>
-                </p>
-
-                <p className="pl-4 text-white/50">
-                  building = <span className="text-emerald-300">"Something useful"</span>
-                </p>
-              </div>
+              <p className="font-mono text-[10px] tracking-widest text-[#C8FF00]/70">
+                CURRENT FOCUS
+              </p>
+              <p className="mt-1 text-sm text-white/90">AI & Generative AI</p>
             </motion.div>
 
-            {/* BOTTOM LABEL */}
-            <div className="relative mt-5 flex items-center justify-between">
-              <span className="text-[10px] uppercase tracking-[0.2em] text-white/30">
-                Curious mind. Constant builder.
-              </span>
-
-              <span className="text-xs text-purple-300">
-                ✦ 2026
-              </span>
-            </div>
+            {/* Floating achievement label */}
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute -bottom-5 -right-3 rounded-2xl border border-[#C8FF00]/20 bg-[#090D0C]/85 px-4 py-3 shadow-[0_10px_35px_rgba(0,0,0,0.4)] backdrop-blur-xl sm:-right-7"
+            >
+              <p className="font-mono text-[10px] tracking-widest text-[#C8FF00]/70">
+                RECENT HIGHLIGHT
+              </p>
+              <p className="mt-1 text-sm text-white/90">HACK60 · 2nd Place ✦</p>
+            </motion.div>
           </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
+
+      {/* Scroll indicator */}
+      <motion.a
+        href="#about"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[#C8FF00]/60 md:flex"
+      >
+        <span className="font-mono text-[9px] tracking-[0.25em]">SCROLL</span>
+        <span className="text-lg">↓</span>
+      </motion.a>
     </section>
   );
-};
-
-export default Hero;
+}
