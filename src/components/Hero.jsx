@@ -119,7 +119,7 @@ export default function Hero() {
 
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#101719]">
               <img
-                src="/images/shruti.jpg"
+                src="/images/shruti.png"
                 alt="Shruti Sharma"
                 className="aspect-[4/5] w-full object-cover object-center"
               />
